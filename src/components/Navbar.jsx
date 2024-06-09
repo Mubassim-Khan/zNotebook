@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Container, Navbar as NavBar, Nav } from 'react-bootstrap';
 // import Logo from '../assets/images/logo.png';
-import { BrowserRouter, Link } from "react-router-dom"
+import { BrowserRouter, Link, useNavigate } from "react-router-dom"
 
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -23,8 +23,13 @@ export const Navbar = () => {
     setActiveLink(value);
   }
 
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  }
+
   return (
-    <BrowserRouter>
       <NavBar expand="md" className={scrolled ? "scrolled" : ''}>
         <Container>
           {/* <NavBar.Brand to="/">
@@ -38,17 +43,19 @@ export const Navbar = () => {
               <Nav.Link href="/" className={activeLink === 'home' ? "active navbar-link" : "navbar-link"} onClick={() => onUpdateActiveLink('home')}>Home</Nav.Link>
               <Nav.Link href="#about" className={activeLink === 'about' ? "active navbar-link" : "navbar-link"} onClick={() => onUpdateActiveLink('about')}>About</Nav.Link>
             </Nav>
-            <span className="navbar-text">
-              <Link to='/login'>
-                <button className="vvd" type="button">Log in</button>
-              </Link>
-              <Link to='/register'>
-                <button className="vvd" type='button'>Register</button>
-              </Link>
-            </span>
+            {!localStorage.getItem("token") ?
+              <span className="navbar-text">
+                <Link to='/login'>
+                  <button className="vvd" type="button">Log in</button>
+                </Link>
+                <Link to='/register'>
+                  <button className="vvd" type='button'>Register</button>
+                </Link>
+              </span> :
+              <button className='vvd' type='button' onClick={handleLogout}>Log out</button>
+            }
           </NavBar.Collapse>
         </Container>
       </NavBar>
-    </BrowserRouter>
   );
 }
