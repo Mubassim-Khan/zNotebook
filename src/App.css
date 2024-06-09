@@ -118,6 +118,12 @@ nav.navbar {
   transition: 0.32s ease-in-out;
 }
 
+.nav-text {
+  color: #f0f8ff;
+  font-size: 20px;
+  font-weight: 500;
+}
+
 nav.navbar.scrolled {
   padding: 0px 0;
   background-color: #121212;
@@ -367,13 +373,19 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 
 /* Notes Page */
 
+.--notes {
+  margin-top: 15rem;
+  top: 15%;
+  padding-top: 5%;
+}
+
 .notes--title {
   font-size: 35px;
   font-weight: 800;
   text-align: center;
   text-transform: none;
   text-decoration: underline;
-  color: #212529;
+  color: #f0f8ff;
   font-family: "Centra", sans-serif !important;
 }
 

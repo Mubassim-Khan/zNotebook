@@ -34,7 +34,7 @@ export const Login = (props) => {
             });
             const json = await response.json();
             console.log(json)
-            if (json.success === false) {
+            if (json.success === true) {
                 // Save the authtoken in local storage & redirect
                 localStorage.setItem('token', json.JWT_AuthToken);
                 toast.success("Logged in successfully")

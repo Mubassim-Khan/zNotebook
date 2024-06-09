@@ -27,7 +27,7 @@ export const AddNotes = () => {
 
     return (
         <>
-        <div className="container my-3 mt-3">
+        <div className="container my-3 mt-3 --notes">
             <TrackVisibility>
                 {({ isVisible }) =>
                     <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>

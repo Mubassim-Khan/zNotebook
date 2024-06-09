@@ -106,7 +106,7 @@ export const Notes = (props) => {
                 </div>
             </div>
 
-            <div className="row my-3">
+            <div className="row my-3 mt-5 --notes">
                 <TrackVisibility>
                     {({ isVisible }) =>
                         <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>

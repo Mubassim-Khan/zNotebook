@@ -56,12 +56,10 @@ export const Navbar = () => {
               </Link>
             </span> :
             (
-              <div className='navbar-text'>
-              <button className='vvd' type='button' onClick={handleLogout}>Log out</button>
-              <NavBar.Text>
-                Signed in as: Mark Otto
-              </NavBar.Text>
-            </div>
+              <span className='navbar-text'>
+                <NavBar.Text className='nav-text mx-4'>Signed in as: Mark Otto</NavBar.Text>
+                <button className='vvd' type='button' onClick={handleLogout}>Log out</button>
+              </span>
             )
           }
         </NavBar.Collapse>
