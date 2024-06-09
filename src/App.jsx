@@ -10,6 +10,8 @@ import {
 import { Home } from './components/Home'
 import NoteState from './context/notes/noteState'
 import { Notes } from './components/Notes'
+import { Login } from './components/Login'
+import { Signup } from './components/Signup'
 
 function App() {
   const [progress, setProgress] = useState(0)
@@ -32,6 +34,11 @@ function App() {
             </Routes>
             <Routes>
               <Route exact path="/notes" element={<Notes setProgress={setProgress} />}></Route>
+            </Routes>
+            <Routes>
+              <Route exact path="/login" element={<Login setProgress={setProgress} />}></Route>
+            </Routes><Routes>
+              <Route exact path="/register" element={<Signup setProgress={setProgress} />}></Route>
             </Routes>
           </div>
         </BrowserRouter>

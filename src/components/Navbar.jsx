@@ -55,11 +55,12 @@ export const Navbar = () => {
                 <button className="vvd" type='button'>Register</button>
               </Link>
             </span> :
-            (<div>
+            (
+              <div className='navbar-text'>
               <button className='vvd' type='button' onClick={handleLogout}>Log out</button>
-              <Navbar.Text>
+              <NavBar.Text>
                 Signed in as: Mark Otto
-              </Navbar.Text>
+              </NavBar.Text>
             </div>
             )
           }
