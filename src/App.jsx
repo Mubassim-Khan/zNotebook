@@ -12,6 +12,7 @@ import NoteState from './context/notes/noteState'
 import { Notes } from './components/Notes'
 import { Login } from './components/Login'
 import { Signup } from './components/Signup'
+import { ToasterProvider } from './components/ToasterProvider'
 
 function App() {
   const [progress, setProgress] = useState(0)
@@ -20,6 +21,7 @@ function App() {
       <NoteState>
         <BrowserRouter>
           <Navbar />
+          <ToasterProvider />
           <LoadingBar
             color='blue'
             progress={progress}
