@@ -1,7 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import noteContext from '../context/notes/noteContext';
 
 export const NoteItem = (props) => {
     // Context of Notes
+    const context = useContext(noteContext);
+    const { deleteNote } = context;
+    
     const { note, updateNote, delNote } = props;
     // To change the icon of options and close
     const [toggle, setToggle] = useState("ellipsis");
@@ -39,6 +43,7 @@ export const NoteItem = (props) => {
                     </div>
                     {/* Note Description */}
                     <p className="card-text">{note.content}</p>
+                    
                 </div>
             </div>
         </div>

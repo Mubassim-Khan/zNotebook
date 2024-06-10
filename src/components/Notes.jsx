@@ -16,6 +16,12 @@ export const Notes = (props) => {
     let navigate = useNavigate();
     const context = useContext(noteContext);
     const { notes, fetchNotes, editNote, deleteNote } = context;
+
+    // let notesArray = [];
+    // for (let key in notes) {
+    //     notesArray.push([key, notes[key]])
+    // }
+
     // Function call using useEffect
     useEffect(() => {
         updateProgress();
@@ -72,7 +78,7 @@ export const Notes = (props) => {
     return (
         <>
             {/* Import new notes from AddNote component */}
-            {/* <AddNotes /> */}
+            <AddNotes />
 
             {/*  Modal to Update Note  */}
             <button type="button" className="btn btn-primary d-none" data-bs-toggle="modal" ref={ref} data-bs-target="#exampleModal"></button>
@@ -110,16 +116,18 @@ export const Notes = (props) => {
                 <TrackVisibility>
                     {({ isVisible }) =>
                         <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
-                            <h3 className='notes--title mt-3 mb-2'>Your Notes</h3>
+                            <h3 className='your-notes--title mt-1 mb-2'>Your Notes</h3>
                         </div>
                     }
                 </TrackVisibility>
                 <div className="container mx-1 my-1">
                     {notes.length === 0 && "No notes to display, Please add a note."}
                 </div>
-                {notes.map((note) => {
-                    return <NoteItem key={note.id} updateNote={updateNote} note={note} delNote={delNote} />
-                })}
+                {
+                    notes.map((note) => {
+                        return <NoteItem key={note.id} updateNote={updateNote} note={note} delNote={delNote} />
+                    })
+                }
             </div>
         </>
     )

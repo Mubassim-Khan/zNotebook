@@ -14,7 +14,7 @@ const NoteState = (props) => {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    "auth-token": localStorage.getItem("authorization")
+                    "Authorization": localStorage.getItem("token")
                 },
             });
             const json = await response.json();
@@ -31,7 +31,7 @@ const NoteState = (props) => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "auth-token": localStorage.getItem("token")
+                "authorization": localStorage.getItem("token")
             },
             body: JSON.stringify({ title, content })
         });
@@ -47,7 +47,7 @@ const NoteState = (props) => {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "auth-token": localStorage.getItem("token")
+                "authorization": localStorage.getItem("token")
             },
             body: JSON.stringify({ title, content }),
         });
@@ -74,7 +74,7 @@ const NoteState = (props) => {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
-                "auth-token": localStorage.getItem("token")
+                "authorization": localStorage.getItem("token")
             },
         });
         // eslint-disable-next-line
@@ -91,7 +91,7 @@ const NoteState = (props) => {
     const ref = useRef("");
 
     const handleSubmit = () => {
-        editNote(note.id, note.Etitle, note.Etitle, note.Econtent);
+        editNote(note.id, note.Etitle, note.Econtent);
         refClose.current.click();
     }
 
@@ -102,11 +102,11 @@ const NoteState = (props) => {
 
     // <NoteContext.Provider value={{ notes, addNote, editNote, deleteNote, fetchNotes }}>
     //     {props.children}
-
+    // , handleSubmit, updateNote, refClose, setNote, note
     return (
 
         // </NoteContext.Provider>
-        <NoteContext.Provider value={{ notes, addNote, editNote, deleteNote, fetchNotes, handleSubmit, updateNote, refClose, setNote, note }}>
+        <NoteContext.Provider value={{ notes, addNote, editNote, deleteNote, fetchNotes }}>
             {props.children}
         </NoteContext.Provider>
     )

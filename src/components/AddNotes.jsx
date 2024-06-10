@@ -27,7 +27,7 @@ export const AddNotes = () => {
 
     return (
         <>
-        <div className="container my-3 mt-3 --notes">
+        <div className="container my-1 mt-3 --notes">
             <TrackVisibility>
                 {({ isVisible }) =>
                     <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
@@ -36,7 +36,7 @@ export const AddNotes = () => {
                 }
             </TrackVisibility>
 
-            <form className='my-3'>
+            <form className='my-1'>
                 <div className="mb-3">
                     <label htmlFor="title" className="form-label notes--field">Title</label>
                     <input type="text" className="form-control" id="title" name="title" aria-describedby="emailHelp" value={note.title} autoComplete='off' onChange={onChange} minLength={3} required />
@@ -52,7 +52,7 @@ export const AddNotes = () => {
             </form>
         </div>
 
-        <Notes />
+        {/* <Notes /> */}
         </>
     )
 }

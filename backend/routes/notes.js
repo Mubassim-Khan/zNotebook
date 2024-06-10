@@ -33,7 +33,7 @@ router.get("/fetchnotes", authenticateToken, async (req, res) => {
 
     try {
         const [notes] = await pool.query('SELECT * FROM notes WHERE user_id = ?', [userID]);
-        res.json({ success: "true", notes });
+        res.json(notes);
 
     } catch (error) {
         res.status(500).json({ error: error.message, message: "Something went wrong. Internal Server Error" });

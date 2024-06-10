@@ -37,7 +37,7 @@ export const Signup = (props) => {
             console.log(json)
             if (json.success === true) {
                 // Save the authtoken in local storage & redirect
-                localStorage.setItem('token', json.JWT_AuthToken);
+                localStorage.setItem('token', json.authtoken);
                 toast.success("Account created successfully!")
                 navigate("/login");
             } else {

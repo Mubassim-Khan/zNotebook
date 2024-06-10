@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import "animate.css"
 import TrackVisibility from "react-on-screen"
-// import { IconButton } from '@mui/material';
 import { About } from './About';
 import { IoMdAddCircle } from 'react-icons/io';
+import { Link } from 'react-router-dom';
 
 export const Home = (props) => {
   // To update Top Loading Bar and change Title of tab 
@@ -36,16 +36,12 @@ export const Home = (props) => {
         {({ isVisible }) =>
           <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
             <div className="add-note">
-              <div className="add-note--txt">
                 <p>Add a new note </p>
-              </div>
-              <div className="add-note--btn mb-4">
-                {/* <IconButton > */}
+                <div className="mx-3">
                   <Link to="/notes">
-                    <IoMdAddCircle />
+                    <IoMdAddCircle fontSize={50} />
                   </Link>
-                {/* </IconButton> */}
-              </div>
+                </div>
             </div>
           </div>
         }
