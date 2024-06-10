@@ -3,7 +3,6 @@ import noteContext from '../context/notes/noteContext';
 import "animate.css"
 import TrackVisibility from "react-on-screen"
 import toast from "react-hot-toast"
-import { Notes } from './Notes';
 
 export const AddNotes = () => {
     const context = useContext(noteContext);
@@ -38,12 +37,12 @@ export const AddNotes = () => {
 
             <form className='my-1'>
                 <div className="mb-3">
-                    <label htmlFor="title" className="form-label notes--field">Title</label>
+                    <label htmlFor="title" className="notes--field-input">Title</label>
                     <input type="text" className="form-control" id="title" name="title" aria-describedby="emailHelp" value={note.title} autoComplete='off' onChange={onChange} minLength={3} required />
                     <div id="textHelp" className="form-text">*Title must be atleast 3 characters long.</div>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="content" className="form-label notes--field">Content</label>
+                    <label htmlFor="content" className="notes--field-input">Content</label>
                     <input type="text" className="form-control" id="content" name='content' value={note.content} autoComplete='off' onChange={onChange} minLength={5} required />
                     <div id="descriptionHelp" className="form-text">*Description must be atleast 5 characters long.</div>
                 </div>
@@ -51,8 +50,6 @@ export const AddNotes = () => {
                 <button disabled={note.title.length < 3 || note.content.length < 5} type="submit" className="btn btn-primary btn-block my-2 addnote--btn" onClick={handleSubmit}>Add Note</button>
             </form>
         </div>
-
-        {/* <Notes /> */}
         </>
     )
 }

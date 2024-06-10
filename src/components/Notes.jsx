@@ -86,7 +86,7 @@ export const Notes = (props) => {
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h1 className="modal-title fs-5 notes--title" id="exampleModalLabel">Edit Note</h1>
+                            <h1 className="modal-title fs-5 notes--title-modal" id="exampleModalLabel">Edit Note</h1>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
@@ -95,12 +95,12 @@ export const Notes = (props) => {
                                 <div className="mb-3">
                                     <label htmlFor="title" className="form-label notes--field">Title</label>
                                     <input type="text" className="form-control" id="Etitle" name="Etitle" aria-describedby="emailHelp" autoComplete='off' value={note.Etitle || ""} onChange={onChange} minLength={3} required />
-                                    <div id="textHelp" className="form-text">*Title must be atleast 3 characters long.</div>
+                                    <div id="textHelp" className="form-text-modal">*Title must be atleast 3 characters long.</div>
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="description" className="form-label notes--field">Description</label>
-                                    <input type="text" className="form-control" id="Edescription" name='Edescription' autoComplete='off' value={note.Econtent || ""} onChange={onChange} minLength={5} required />
-                                    <div id="descriptionHelp" className="form-text">*Description must be atleast 5 characters long.</div>
+                                    <label htmlFor="content" className="form-label notes--field">Description</label>
+                                    <input type="text" className="form-control" id="Econtent" name='Econtent' autoComplete='off' value={note.Econtent || ""} onChange={onChange} minLength={5} required />
+                                    <div id="contentHelp" className="form-text-modal">*Description must be atleast 5 characters long.</div>
                                 </div>
                             </form>
                         </div>
@@ -125,7 +125,7 @@ export const Notes = (props) => {
                 </div>
                 {
                     notes.map((note) => {
-                        return <NoteItem key={note.id} updateNote={updateNote} note={note} delNote={delNote} />
+                        return <NoteItem key={note.id} updateNote={updateNote} note={note} />
                     })
                 }
             </div>

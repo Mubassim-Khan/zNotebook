@@ -5,7 +5,7 @@ export const NoteItem = (props) => {
     // Context of Notes
     const context = useContext(noteContext);
     const { deleteNote } = context;
-    
+
     const { note, updateNote, delNote } = props;
     // To change the icon of options and close
     const [toggle, setToggle] = useState("ellipsis");
@@ -43,7 +43,7 @@ export const NoteItem = (props) => {
                     </div>
                     {/* Note Description */}
                     <p className="card-text">{note.content}</p>
-                    
+                    <p className='card-text'>Created at: {note.createdAt}</p>
                 </div>
             </div>
         </div>
