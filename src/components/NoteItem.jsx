@@ -1,17 +1,25 @@
-import React, { useContext, useState } from 'react'
-import noteContext from '../context/notes/noteContext';
+import React, { useState } from 'react'
 
 export const NoteItem = (props) => {
-    // Context of Notes
-    const context = useContext(noteContext);
-    const { deleteNote } = context;
-
     const { note, updateNote, delNote } = props;
     // To change the icon of options and close
     const [toggle, setToggle] = useState("ellipsis");
     const toggleButton = () => {
         setToggle((prevToggle) => (prevToggle === "ellipsis" ? "xmark" : "ellipsis"));
     };
+
+    function convertToLocalTime(isoDateString) {
+        const date = new Date(isoDateString);
+
+        const localDate = date.toLocaleDateString();
+        const localTime = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        return {
+            localDate,
+            localTime
+        };
+    }
+
+    const localDateTime = convertToLocalTime(note.createdAt)
 
     return (
         <div className='col-md-3'>
@@ -43,7 +51,7 @@ export const NoteItem = (props) => {
                     </div>
                     {/* Note Description */}
                     <p className="card-text">{note.content}</p>
-                    <p className='card-date'>Created at: {note.createdAt}</p>
+                    <p className='card-date'>Created at: {localDateTime.localDate} {localDateTime.localTime}</p>
                 </div>
             </div>
         </div>

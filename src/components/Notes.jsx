@@ -38,7 +38,7 @@ export const Notes = (props) => {
         try {
             await editNote(note.id, note.Etitle, note.Econtent);
             refClose.current.click();
-            toast.success("New note added")
+            toast.success("Note updated")
         } catch {
             toast.error("Could not create a note, Please try again later.")
         }
@@ -55,7 +55,6 @@ export const Notes = (props) => {
         try {
             ref.current.click();
             setNote({ id: currentNote.id, Etitle: currentNote.title, Econtent: currentNote.content });
-            toast.success("Note updated")
         } catch (error) {
             console.log("Error deleting note:", error);
             toast.error("Could not update note, Please try again later.")
