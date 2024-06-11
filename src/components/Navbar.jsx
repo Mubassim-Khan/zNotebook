@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Container, Navbar as NavBar, Nav } from 'react-bootstrap';
 import toast from 'react-hot-toast';
-// import Logo from '../assets/images/logo.png';
+import Logo from '../assets/images/logo.png';
 import { Link, useNavigate } from "react-router-dom"
 
 export const Navbar = () => {
@@ -36,14 +36,15 @@ export const Navbar = () => {
   return (
     <NavBar expand="md" className={scrolled ? "scrolled" : ''}>
       <Container>
-        {/* <NavBar.Brand to="/">
+        <NavBar.Brand href="/">
           <img className="navbar-logo" src={Logo} alt="Logo" />
-        </NavBar.Brand> */}
+          <span className='navbar-logo-text mx-1'>iNotebook</span>
+        </NavBar.Brand>
         <NavBar.Toggle aria-controls="basic-navbar-nav">
           <span className="navbar-toggle-icon"></span>
         </NavBar.Toggle>
         <NavBar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
+          <Nav className="me-auto mx-5">
             <Nav.Link href="/" className={activeLink === 'home' ? "active navbar-link" : "navbar-link"} onClick={() => onUpdateActiveLink('home')}>Home</Nav.Link>
             <Nav.Link href="#about" className={activeLink === 'about' ? "active navbar-link" : "navbar-link"} onClick={() => onUpdateActiveLink('about')}>About</Nav.Link>
             <Nav.Link href="/notes" className={activeLink === 'notes' ? "active navbar-link" : "navbar-link"} onClick={() => onUpdateActiveLink('notes')}>Notes</Nav.Link>

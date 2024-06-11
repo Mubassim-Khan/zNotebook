@@ -25,6 +25,7 @@ export const Notes = (props) => {
         if (localStorage.getItem("token")) {
             fetchNotes();
         } else {
+            toast.error("Login Required.")
             navigate("/login");
         }
         // eslint-disable-next-line

@@ -4,7 +4,7 @@ import TrackVisibility from "react-on-screen"
 
 export const About = () => {
   useEffect(() => {
-    document.title = 'About - Notebook'
+    document.title = 'About - iNotebook'
   }, [])
 
   return (
