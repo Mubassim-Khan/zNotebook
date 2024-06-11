@@ -1,5 +1,6 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import NoteContext from "./noteContext";
+import toast from "react-hot-toast";
 
 const NoteState = (props) => {
     const hostURL = "http://localhost:8080";
@@ -83,29 +84,7 @@ const NoteState = (props) => {
         setNotes(newNotes);
     }
 
-    // -----
-
-    const [note, setNote] = useState({ id: "", Etitle: "", Econtent: "" });
-
-    const refClose = useRef("");
-    const ref = useRef("");
-
-    const handleSubmit = () => {
-        editNote(note.id, note.Etitle, note.Econtent);
-        refClose.current.click();
-    }
-
-    const updateNote = (currentNote) => {
-        ref.current.click();
-        setNote({ id: currentNote.id, Etitle: currentNote.title, Econtent: currentNote.content });
-    };
-
-    // <NoteContext.Provider value={{ notes, addNote, editNote, deleteNote, fetchNotes }}>
-    //     {props.children}
-    // , handleSubmit, updateNote, refClose, setNote, note
     return (
-
-        // </NoteContext.Provider>
         <NoteContext.Provider value={{ notes, addNote, editNote, deleteNote, fetchNotes }}>
             {props.children}
         </NoteContext.Provider>

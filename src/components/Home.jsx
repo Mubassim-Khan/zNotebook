@@ -36,17 +36,17 @@ export const Home = (props) => {
         {({ isVisible }) =>
           <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
             <div className="add-note">
-                <p>Add a new note </p>
-                <div className="mx-3">
+                <p className='mb-3'>Add a new note </p>
+                <div className="mx-3 mb-3">
                   <Link to="/notes">
                     <IoMdAddCircle fontSize={50} />
                   </Link>
-                </div>
+              </div>
             </div>
           </div>
         }
       </TrackVisibility>
       <About />
-   </div>
+    </div>
   )
 }

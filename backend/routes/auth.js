@@ -72,9 +72,11 @@ router.post('/login', [
             return res.status(403).json({ success: false, message: 'Invalid email or password' });
         }
 
+        const username = user.name;
+
         const token = jwt.sign({ userId: user.id }, process.env.JWT_TOKEN);
-        console.log(token)
-        res.json({ success: true, authtoken: token });
+        res.json({ success: true, authtoken: token, username: username });
+        return username;
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
     }

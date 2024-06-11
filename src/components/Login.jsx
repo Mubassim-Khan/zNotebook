@@ -37,6 +37,8 @@ export const Login = (props) => {
             if (json.success === true) {
                 // Save the authtoken in local storage & redirect
                 localStorage.setItem('token', json.authtoken);
+                localStorage.setItem('name', json.username);
+                console.log(localStorage.getItem('name'))
                 toast.success("Logged in successfully")
                 navigate("/");
             } else {

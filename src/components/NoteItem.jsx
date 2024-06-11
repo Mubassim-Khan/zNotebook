@@ -43,7 +43,7 @@ export const NoteItem = (props) => {
                     </div>
                     {/* Note Description */}
                     <p className="card-text">{note.content}</p>
-                    <p className='card-text'>Created at: {note.createdAt}</p>
+                    <p className='card-date'>Created at: {note.createdAt}</p>
                 </div>
             </div>
         </div>

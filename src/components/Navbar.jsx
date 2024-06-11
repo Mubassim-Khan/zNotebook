@@ -5,6 +5,8 @@ import toast from 'react-hot-toast';
 import { Link, useNavigate } from "react-router-dom"
 
 export const Navbar = () => {
+     const userName = localStorage.getItem('name')
+
   const [scrolled, setScrolled] = useState(false);
   const [activeLink, setActiveLink] = useState("home");
   useEffect(() => {
@@ -57,7 +59,7 @@ export const Navbar = () => {
             </span> :
             (
               <span className='navbar-text'>
-                <NavBar.Text className='nav-text mx-4'>Signed in as: Mark Otto</NavBar.Text>
+                <NavBar.Text className='nav-text mx-4'>Signed in as: {userName}</NavBar.Text>
                 <button className='vvd' type='button' onClick={handleLogout}>Log out</button>
               </span>
             )

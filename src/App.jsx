@@ -13,6 +13,7 @@ import { Notes } from './components/Notes'
 import { Login } from './components/Login'
 import { Signup } from './components/Signup'
 import { ToasterProvider } from './components/ToasterProvider'
+import { Footer } from './components/Footer'
 
 function App() {
   const [progress, setProgress] = useState(0)
@@ -43,6 +44,7 @@ function App() {
               <Route exact path="/register" element={<Signup setProgress={setProgress} />}></Route>
             </Routes>
           </div>
+        <Footer />
         </BrowserRouter>
       </NoteState>
     </>

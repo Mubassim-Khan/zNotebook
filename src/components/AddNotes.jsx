@@ -26,7 +26,7 @@ export const AddNotes = () => {
 
     return (
         <>
-        <div className="container my-1 mt-3 --notes">
+        <div className="container my-1 mt-3 add--notes">
             <TrackVisibility>
                 {({ isVisible }) =>
                     <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
@@ -43,7 +43,7 @@ export const AddNotes = () => {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="content" className="notes--field-input">Content</label>
-                    <input type="text" className="form-control" id="content" name='content' value={note.content} autoComplete='off' onChange={onChange} minLength={5} required />
+                    <input type="text" className="form-control form--content" id="content" name='content' value={note.content} autoComplete='off' onChange={onChange} minLength={5} required />
                     <div id="descriptionHelp" className="form-text">*Description must be atleast 5 characters long.</div>
                 </div>
                 

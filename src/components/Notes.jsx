@@ -17,11 +17,6 @@ export const Notes = (props) => {
     const context = useContext(noteContext);
     const { notes, fetchNotes, editNote, deleteNote } = context;
 
-    // let notesArray = [];
-    // for (let key in notes) {
-    //     notesArray.push([key, notes[key]])
-    // }
-
     // Function call using useEffect
     useEffect(() => {
         updateProgress();
@@ -125,7 +120,7 @@ export const Notes = (props) => {
                 </div>
                 {
                     notes.map((note) => {
-                        return <NoteItem key={note.id} updateNote={updateNote} note={note} />
+                        return <NoteItem key={note.id} updateNote={updateNote} note={note} delNote={delNote} />
                     })
                 }
             </div>
