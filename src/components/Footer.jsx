@@ -14,11 +14,11 @@ export const Footer = () => {
                         alt="Footer logo"
                         className="d-inline-block align-text-top footer-img" />
                     <span className="ml-3 text-xl footer-txt-heading">
-                        iNotebook
+                        zNotebook
                     </span>
                 </Link>
                 <p className="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4 footer-txt">
-                    © 2024 iNotebook. All Rights Reserved.
+                    © 2024 zNotebook. All Rights Reserved.
                 </p>
                 <span className="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start footer-icons"></span>
             </div>

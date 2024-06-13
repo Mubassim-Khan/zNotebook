@@ -8,7 +8,7 @@ export const Login = (props) => {
     // To update Top Loading Bar and change Title of tab 
     const updateProgress = () => {
         props.setProgress(100);
-        document.title = "Login to iNotebook - iNotebook";
+        document.title = "Login to zNotebook - zNotebook";
     }
     useEffect(() => {
         updateProgress();
@@ -66,7 +66,7 @@ export const Login = (props) => {
                             <div className="row justify-content-center">
                                 <div className="col-md-8">
                                     <div className="mb-4">
-                                        <h3 className='signup--heading'>Login to <strong> iNotebook</strong></h3>
+                                        <h3 className='signup--heading'>Login to <strong> zNotebook</strong></h3>
                                     </div>
                                     <form onSubmit={handleSubmit}>
                                         <div className="mb-3">
@@ -85,7 +85,7 @@ export const Login = (props) => {
                                         </div>
 
                                         <button type="submit" className="btn btn-primary btn-block my-2 login--btn" disabled={credentials.email.length === 0 || credentials.password.length === 0}>Log In</button>
-                                        <div id="signIn" className="form-text mt-4 redirect">New to iNotebook?
+                                        <div id="signIn" className="form-text mt-4 redirect">New to zNotebook?
                                             <Link className='redirect--link' to="/register"> Create an account </Link>
                                         </div>
                                     </form>

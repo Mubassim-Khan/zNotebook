@@ -8,7 +8,7 @@ export const Signup = (props) => {
     // To update Top Loading Bar and change Title of tab 
     const updateProgress = () => {
         props.setProgress(100);
-        document.title = "Join iNotebook - iNotebook";
+        document.title = "Join zNotebook - zNotebook";
     }
     useEffect(() => {
         updateProgress();
@@ -65,7 +65,7 @@ export const Signup = (props) => {
                             <div className="row justify-content-center">
                                 <div className="col-md-8">
                                     <div className="mb-4">
-                                        <h3 className='signup--heading'>Register to<strong> iNotebook</strong></h3>
+                                        <h3 className='signup--heading'>Register to<strong> zNotebook</strong></h3>
                                     </div>
 
                                     <form onSubmit={handleSubmit}>

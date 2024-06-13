@@ -9,7 +9,7 @@ export const Home = (props) => {
   // To update Top Loading Bar and change Title of tab 
   const updateProgress = () => {
     props.setProgress(100);
-    document.title = "Home - iNotebook";
+    document.title = "Home - zNotebook";
   }
   useEffect(() => {
     updateProgress();
@@ -22,9 +22,9 @@ export const Home = (props) => {
         <TrackVisibility>
           {({ isVisible }) =>
             <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
-              <h2 className='home--heading'>Welcome to iNotebook - Your Personal Note Taking App</h2>
+              <h2 className='home--heading'>Welcome to zNotebook - Your Personal Note Taking App</h2>
               <p className='home-text-center'>
-                Are you tired of forgetting important information, ideas, or tasks? iNotebook is here to help you stay organized & keep track of everything that matters to you the most.
+                Are you tired of forgetting important information, ideas, or tasks? zNotebook is here to help you stay organized & keep track of everything that matters to you the most.
               </p>
             </div>
           }

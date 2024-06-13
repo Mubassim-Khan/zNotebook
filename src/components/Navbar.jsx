@@ -38,7 +38,7 @@ export const Navbar = () => {
       <Container>
         <NavBar.Brand href="/">
           <img className="navbar-logo" src={Logo} alt="Logo" />
-          <span className='navbar-logo-text mx-1'>iNotebook</span>
+          <span className='navbar-logo-text mx-1'>zNotebook</span>
         </NavBar.Brand>
         <NavBar.Toggle aria-controls="basic-navbar-nav">
           <span className="navbar-toggle-icon"></span>
@@ -60,7 +60,7 @@ export const Navbar = () => {
             </span> :
             (
               <span className='navbar-text'>
-                <NavBar.Text className='nav-text mx-4'>Signed in as: {userName}</NavBar.Text>
+                <NavBar.Text className='nav-text mx-4'>Signed in as: {!userName ? "" : userName}</NavBar.Text>
                 <button className='vvd' type='button' onClick={handleLogout}>Log out</button>
               </span>
             )

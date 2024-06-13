@@ -11,7 +11,7 @@ export const Notes = (props) => {
     // To update Top Loading Bar and change Title of tab 
     const updateProgress = () => {
         props.setProgress(100);
-        document.title = "Your Notes - iNotebook";
+        document.title = "Your Notes - zNotebook";
     }
     let navigate = useNavigate();
     const context = useContext(noteContext);
