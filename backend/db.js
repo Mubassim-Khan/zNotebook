@@ -1,14 +1,16 @@
-const mysql = require('mysql2/promise')
-require('dotenv').config()
+const mongoose = require('mongoose')
+require('dotenv').config();
 
-const db = mysql.createPool({
-    host: 'localhost',
-    user: `${process.env.MYSQL_USERNAME}`,
-    password: `${process.env.MYSQL_PASSWORD}`,
-    database: 'todo_app',
-    waitForConnections: true,
-    connectionLimit: 5,
-    queueLimit: 0
-})
+// MongoDB connection string
+const mongoDB_URI = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@cluster0.aaua1c8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
 
-module.exports = db
+const connectToMongo = async () => {
+    await mongoose.connect(mongoDB_URI, {
+    }).then(() => {
+        console.log("Connection is successfull :)");
+    }).catch((e) => {
+        console.log("NOT Connected :( " + e);
+    });
+} 
+
+module.exports = connectToMongo;
