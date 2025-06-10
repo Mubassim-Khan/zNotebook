@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import NoteContext from "./noteContext";
 import toast from "react-hot-toast";
 
 const NoteState = (props) => {
-    const hostURL = "http://localhost:8080";
+    const hostURL = import.meta.env.VITE_HOST_URL;
     const initialNotes = [];
     const [notes, setNotes] = useState(initialNotes);
 
@@ -15,7 +15,7 @@ const NoteState = (props) => {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": localStorage.getItem("token")
+                    "authorization": localStorage.getItem("token")
                 },
             });
             const json = await response.json();
@@ -26,7 +26,7 @@ const NoteState = (props) => {
     };
 
     // Add a Note
-    const addNote = async (title, content) => {
+    const addNote = async (title, description, tag) => {
         // API Call
         const response = await fetch(`${hostURL}/api/notes/addnote`, {
             method: "POST",
@@ -34,7 +34,7 @@ const NoteState = (props) => {
                 "Content-Type": "application/json",
                 "authorization": localStorage.getItem("token")
             },
-            body: JSON.stringify({ title, content })
+            body: JSON.stringify({ title, description, tag })
         });
         const note = await response.json();
         // Method for concatinating notes JSON 
@@ -42,7 +42,7 @@ const NoteState = (props) => {
     }
 
     // Edit a Note
-    const editNote = async (id, title, content) => {
+    const editNote = async (id, title, description, tag) => {
         // API Call
         const response = await fetch(`${hostURL}/api/notes/updatenote/${id}`, {
             method: "PUT",
@@ -50,7 +50,7 @@ const NoteState = (props) => {
                 "Content-Type": "application/json",
                 "authorization": localStorage.getItem("token")
             },
-            body: JSON.stringify({ title, content }),
+            body: JSON.stringify({ title, description, tag }),
         });
         // eslint-disable-next-line
         const json = await response.json();
@@ -61,7 +61,8 @@ const NoteState = (props) => {
             const element = newNotes[i];
             if (element.id === id) {
                 newNotes[i].title = title;
-                newNotes[i].content = content;
+                newNotes[i].description = description;
+                newNotes[i].tag = tag;
                 break;
             }
         }

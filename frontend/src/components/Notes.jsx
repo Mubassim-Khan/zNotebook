@@ -31,12 +31,12 @@ export const Notes = (props) => {
         // eslint-disable-next-line
     }, []);
     // State of note set with id & edited (title, description, tag) 
-    const [note, setNote] = useState({ id: "", Etitle: "", Econtent: "" });
+    const [note, setNote] = useState({ id: "", Etitle: "", Edescription: "", Etag: "" });
 
     // Updated content of note is added & also closes model with ref to close btn
     const handleSubmit = async () => {
         try {
-            await editNote(note.id, note.Etitle, note.Econtent);
+            await editNote(note.id, note.Etitle, note.Edescription, note.Etag);
             refClose.current.click();
             toast.success("Note updated")
         } catch {
@@ -54,7 +54,7 @@ export const Notes = (props) => {
     const updateNote = (currentNote) => {
         try {
             ref.current.click();
-            setNote({ id: currentNote.id, Etitle: currentNote.title, Econtent: currentNote.content });
+            setNote({ id: currentNote._id, Etitle: currentNote.title, Edescription: currentNote.description, Etag: currentNote.tag });
         } catch (error) {
             console.log("Error deleting note:", error);
             toast.error("Could not update note, Please try again later.")
@@ -63,7 +63,7 @@ export const Notes = (props) => {
 
     const delNote = async (note) => {
         try {
-            await deleteNote(note.id);
+            await deleteNote(note._id);
             toast.success("Note deleted")
         } catch (err) {
             toast.error("Could not delete note, Please try again later.")
@@ -93,15 +93,20 @@ export const Notes = (props) => {
                                     <div id="textHelp" className="form-text-modal">*Title must be atleast 3 characters long.</div>
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="content" className="form-label notes--field">Description</label>
-                                    <input type="text" className="form-control" id="Econtent" name='Econtent' autoComplete='off' value={note.Econtent || ""} onChange={onChange} minLength={5} required />
+                                    <label htmlFor="description" className="form-label notes--field">Description</label>
+                                    <input type="text" className="form-control" id="Edescription" name='Edescription' autoComplete='off' value={note.Edescription || ""} onChange={onChange} minLength={5} required />
                                     <div id="contentHelp" className="form-text-modal">*Description must be atleast 5 characters long.</div>
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="tag" className="form-label notes--field">Tag</label>
+                                    <input type="text" className="form-control" id="Etag" name='Etag' autoComplete='off' value={note.Etag || ""} onChange={onChange} />
+                                    <div id="emailHelp" className="form-text-modal">Enter a tag to easily categorize notes.</div>
                                 </div>
                             </form>
                         </div>
                         <div className="modal-footer">
                             <button ref={refClose} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary btn-block my-2 updatenote--btn" disabled={note.Etitle.length < 3 || note.Econtent.length < 5} onClick={handleSubmit}>Update Note</button>
+                            <button type="button" className="btn btn-primary btn-block my-2 updatenote--btn" disabled={note.Etitle.length < 3 || note.Edescription.length < 5} onClick={handleSubmit}>Update Note</button>
                         </div>
                     </div>
                 </div>
@@ -120,7 +125,7 @@ export const Notes = (props) => {
                 </div>
                 {
                     notes.map((note) => {
-                        return <NoteItem key={note.id} updateNote={updateNote} note={note} delNote={delNote} />
+                        return <NoteItem key={note._id} updateNote={updateNote} note={note} delNote={delNote} />
                     })
                 }
             </div>

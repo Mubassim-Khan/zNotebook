@@ -49,8 +49,14 @@ export const NoteItem = (props) => {
                             </div>
                         </i>
                     </div>
+
+                    {/* Note Tag */}
+                    <p className="form-text">Note Tag: {note.tag}</p>
+
                     {/* Note Description */}
-                    <p className="card-text">{note.content}</p>
+                    <p className="card-text">{note.description}</p>
+
+                    {/* Note Created Time */}
                     <p className='card-date'>Created at: {localDateTime.localDate} {localDateTime.localTime}</p>
                 </div>
             </div>
