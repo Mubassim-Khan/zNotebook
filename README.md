@@ -1,8 +1,8 @@
 # zNotebook
 
-![Preview 1 Image](https://github.com/Mubassim-Khan/zNotebook/blob/main/src/assets/images/Preview%203.png)
+![Preview 1 Image](https://github.com/Mubassim-Khan/zNotebook/blob/main/frontend/src/assets/images/Preview%203.png)
 
-![Preview 2 Image](https://github.com/Mubassim-Khan/zNotebook/blob/main/src/assets/images/Preview.png)
+![Preview 2 Image](https://github.com/Mubassim-Khan/zNotebook/blob/main/frontend/src/assets/images/Preview.png)
 
 <div align="center">
     <img src="https://img.shields.io/badge/-React_JS-black?style=for-the-badge&logoColor=%2361DAFB&logo=react&color=%2320232a" alt="reactdotjs" />
