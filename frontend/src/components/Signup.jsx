@@ -15,7 +15,8 @@ export const Signup = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const hostURL = "http://localhost:8080";
+    const hostURL = import.meta.env.VITE_HOST_URL;
+    
     // State to keep track of credentials
     const [credentials, setCredentials] = useState({ name: "", email: "", password: "", confirmpassword: "" });
     // useNavigate to redirect to Home page of Notes

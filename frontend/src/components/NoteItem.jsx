@@ -10,7 +10,6 @@ export const NoteItem = (props) => {
 
     function convertToLocalTime(isoDateString) {
         const date = new Date(isoDateString);
-
         const localDate = date.toLocaleDateString();
         const localTime = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         return {
@@ -19,7 +18,7 @@ export const NoteItem = (props) => {
         };
     }
 
-    const localDateTime = convertToLocalTime(note.createdAt)
+    const localDateTime = convertToLocalTime(note.date)
 
     return (
         <div className='col-md-3'>
