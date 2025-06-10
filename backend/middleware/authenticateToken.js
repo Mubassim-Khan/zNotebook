@@ -9,7 +9,7 @@ const authenticateToken = (req, res, next) => {
 
     jwt.verify(token, JWT_TOKEN, (err, user) => {
         if (err) return res.status(403).send({ error: "Insufficient Permissions" });
-        req.user = user;
+        req.user = user.user;
         next();
     });
 }
