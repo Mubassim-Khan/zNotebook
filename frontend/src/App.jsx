@@ -19,34 +19,29 @@ function App() {
   const [progress, setProgress] = useState(0)
   return (
     <>
-      <NoteState>
-        <BrowserRouter>
-          <Navbar />
-          <ToasterProvider />
-          <LoadingBar
-            color='blue'
-            progress={progress}
-            height={3}
-            transitionTime={300}
-            waitingTime={1500}
-            onLoaderFinished={() => setProgress(0)}
-          />
-          <div className="container">
-            <Routes>
+      <Navbar />
+      <LoadingBar
+        color='blue'
+        progress={progress}
+        height={3}
+        transitionTime={300}
+        waitingTime={1500}
+        onLoaderFinished={() => setProgress(0)}
+      />
+      <div className="container">
+        <Routes>
               <Route exact path="/" element={<Home setProgress={setProgress} />}></Route>
             </Routes>
-            <Routes>
-              <Route exact path="/notes" element={<Notes setProgress={setProgress} />}></Route>
-            </Routes>
-            <Routes>
-              <Route exact path="/login" element={<Login setProgress={setProgress} />}></Route>
-            </Routes><Routes>
-              <Route exact path="/register" element={<Signup setProgress={setProgress} />}></Route>
-            </Routes>
-          </div>
-        <Footer />
-        </BrowserRouter>
-      </NoteState>
+        <Routes>
+          <Route exact path="/notes" element={<Notes setProgress={setProgress} />}></Route>
+        </Routes>
+        <Routes>
+          <Route exact path="/login" element={<Login setProgress={setProgress} />}></Route>
+        </Routes><Routes>
+          <Route exact path="/register" element={<Signup setProgress={setProgress} />}></Route>
+        </Routes>
+      </div>
+      <Footer />
     </>
   )
 }
