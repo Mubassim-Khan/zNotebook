@@ -36,9 +36,8 @@ const NoteState = (props) => {
             },
             body: JSON.stringify({ title, description, tag })
         });
-        const note = await response.json();
-        // Method for concatinating notes JSON 
-        setNotes(notes.concat(note));
+        const data = await response.json();
+        setNotes(notes.concat(data.savedNote));
     }
 
     // Edit a Note

@@ -19,12 +19,15 @@ export const Login = (props) => {
 
     // State to keep track of credentials
     const [credentials, setCredentials] = useState({ email: "", password: "" });
+    const [loading, setLoading] = useState(false); // Spinner state
+
     // useNavigate to redirect to Home page of Notes
     let navigate = useNavigate();
     // Send the reponse to API and authenticate the user
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
+            setLoading(true); 
             const response = await fetch(`${hostURL}/api/auth/login`, {
                 method: "POST",
                 headers: {
@@ -33,6 +36,7 @@ export const Login = (props) => {
                 body: JSON.stringify({ email: credentials.email, password: credentials.password })
             });
             const json = await response.json();
+            setLoading(false); // Stop spinner after response
             console.log(json)
             if (json.success === true) {
                 // Save the authtoken in local storage & redirect
@@ -46,6 +50,7 @@ export const Login = (props) => {
             }
         } catch {
             toast.error("Request timed out. Connection Error.")
+            setLoading(false); // Stop spinner on error
         }
     }
     // To display the change in every keystroke at input fields 
@@ -68,6 +73,14 @@ export const Login = (props) => {
                                     <div className="mb-4">
                                         <h3 className='signup--heading'>Login to <strong> zNotebook</strong></h3>
                                     </div>
+
+                                    {loading ? (
+                                        <div className="d-flex justify-content-center my-4">
+                                            <div className="spinner-border text-primary" role="status">
+                                                <span className="visually-hidden">Loading...</span>
+                                            </div>
+                                        </div>
+                                    ) : (
                                     <form onSubmit={handleSubmit}>
                                         <div className="mb-3">
                                             <div className="form-group first">
@@ -89,6 +102,7 @@ export const Login = (props) => {
                                             <Link className='redirect--link' to="/register"> Create an account </Link>
                                         </div>
                                     </form>
+                                    )}
                                 </div>
                             </div>
                         </div>
