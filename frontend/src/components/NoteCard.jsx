@@ -11,33 +11,27 @@ export const NoteCard = ({ note }) => {
       localTime,
     };
   };
-
   const localDateTime = convertToLocalTime(note.date);
 
   return (
-    <div className="col-md-3 bg-gray-500 border">
-      <div className="my-3">
-        <div className=" mb-2 mt-2 text-gray-700">
-          <div className="d-inline-flex align-items-center gap-1">
-            {/* Note Title */}
-            <h5 className="card-title">{note.title}</h5>
-          </div>
-
-          {/* Note Tag */}
-          {note.tag && (
-            <p className="inline-block text-blue-800 text-xs px-2 py-1 rounded">
-              Note Tag: {note.tag}
-            </p>
-          )}
-
-          {/* Note Description */}
-          <p className="mb-2">{note.description}</p>
-
-          {/* Note Created Time */}
-          <p className="card-date">
-            Created at: {localDateTime.localDate} {localDateTime.localTime}
-          </p>
-        </div>
+    <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 animate-fade-in-scale">
+      <div className="flex items-center justify-between mb-2">
+        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+          {note.title}
+        </h5>
+        {note.tag && (
+          <span className="inline-block bg-blue-100 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full ml-2">
+            {note.tag}
+          </span>
+        )}
+      </div>
+      <p className="font-normal text-gray-700 dark:text-gray-400">
+        {note.description}
+      </p>
+      <div className="flex items-center justify-between mt-4">
+        <span className="text-xs text-gray-300">
+          Created at: {localDateTime.localDate} {localDateTime.localTime}
+        </span>
       </div>
     </div>
   );

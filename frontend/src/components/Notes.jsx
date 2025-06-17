@@ -37,7 +37,7 @@ export const Notes = (props) => {
 
   // Optional: For the "Create Blog" button
   const [writing, setWriting] = useState(false);
-  
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -52,8 +52,10 @@ export const Notes = (props) => {
       {/* Main content area */}
       <main className="flex-1 flex items-center justify-center transition-all duration-300">
         {activeNote ? (
-          <div className="w-full max-w-2xl">
-            <NoteCard note={activeNote} />
+          <div className="flex items-center justify-center w-full h-full">
+            <div className="w-full max-w-md min-h-[100px] flex flex-col justify-between">
+              <NoteCard note={activeNote} />
+            </div>
           </div>
         ) : (
           <div className="w-full max-w-2xl flex flex-col items-center justify-center">

@@ -11,7 +11,7 @@ function App() {
   const [progress, setProgress] = useState(0);
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <LoadingBar
         color="blue"
         progress={progress}

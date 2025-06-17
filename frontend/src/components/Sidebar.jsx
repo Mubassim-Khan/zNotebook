@@ -63,7 +63,6 @@ export const Sidebar = ({ open, setOpen, onOpenNote }) => {
     if (onOpenNote) {
       onOpenNote(note);
     }
-    setOpen(false);
     setMenuOpenId(null);
   };
 
@@ -77,7 +76,8 @@ export const Sidebar = ({ open, setOpen, onOpenNote }) => {
       >
         {open && (
           <>
-            <div className="flex items-center justify-between px-4 py-4 border-b border-gray-700">
+            {/* Header */}
+            <div className="flex items-center justify-between px-4 py-4 border-b border-gray-700 z-50">
               <h2 className="text-xl font-bold text-white">Your Notes</h2>
               <button
                 className="p-1 rounded-full hover:bg-gray-700 transition"
@@ -87,7 +87,8 @@ export const Sidebar = ({ open, setOpen, onOpenNote }) => {
                 <IoMdClose size={24} className="text-white" />
               </button>
             </div>
-            <div className="p-4 flex flex-col gap-4 h-[calc(100%-64px)]">
+            {/* Content */}
+            <div className="p-4 flex flex-col gap-4 flex-1 h-0">
               <button
                 onClick={handleAddNote}
                 className="flex items-center justify-center gap-2 text-white bg-gray-600 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
@@ -165,7 +166,7 @@ export const Sidebar = ({ open, setOpen, onOpenNote }) => {
       {/* Sidebar Toggle Button */}
       {!open && (
         <button
-          className="fixed top-5 left-5 z-50 p-2 rounded-full bg-blue-700 text-white shadow-lg hover:bg-blue-800 transition"
+          className="fixed top-5 left-5 z-50 p-2 bg-gray-700 text-white shadow-lg hover:bg-gray-800 transition"
           onClick={() => setOpen(true)}
           aria-label="Open sidebar"
         >
