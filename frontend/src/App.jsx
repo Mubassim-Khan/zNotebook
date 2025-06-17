@@ -9,9 +9,11 @@ import { Signup } from "./components/Signup";
 
 function App() {
   const [progress, setProgress] = useState(0);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   return (
     <>
-      {/* <Navbar /> */}
+      <Navbar open={sidebarOpen} setOpen={setSidebarOpen} />
       <LoadingBar
         color="blue"
         progress={progress}
@@ -25,7 +27,7 @@ function App() {
           <Route
             exact
             path="/"
-            element={<Notes setProgress={setProgress} />}
+            element={<Notes open={sidebarOpen} setOpen={setSidebarOpen} />}
           ></Route>
         </Routes>
         <Routes>

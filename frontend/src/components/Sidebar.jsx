@@ -70,9 +70,9 @@ export const Sidebar = ({ open, setOpen, onOpenNote }) => {
     <>
       {/* Sidebar */}
       <div
-        className={`h-screen ${
+        className={`fixed left-0 top-16 h-[calc(100vh-4rem)] ${
           open ? "w-72" : "w-0"
-        } bg-gray-800 shadow-lg z-40 flex flex-col transition-all duration-300 overflow-hidden`}
+        } bg-gray-800 shadow-lg z-60 flex flex-col transition-all duration-300 overflow-hidden`}
       >
         {open && (
           <>
@@ -162,17 +162,7 @@ export const Sidebar = ({ open, setOpen, onOpenNote }) => {
             </div>
           </>
         )}
-      </div>
-      {/* Sidebar Toggle Button */}
-      {!open && (
-        <button
-          className="fixed top-5 left-5 z-50 p-2 bg-gray-700 text-white shadow-lg hover:bg-gray-800 transition"
-          onClick={() => setOpen(true)}
-          aria-label="Open sidebar"
-        >
-          <IoMdMenu size={28} />
-        </button>
-      )}
+      </div>      
       <DeleteModal
         removeArticle={async (id) => {
           try {

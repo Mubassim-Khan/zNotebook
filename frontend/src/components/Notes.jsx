@@ -6,10 +6,9 @@ import noteContext from "../context/notes/noteContext";
 import { Sidebar } from "./Sidebar";
 import { NoteCard } from "./NoteCard";
 
-export const Notes = (props) => {
+export const Notes = ({ open, setOpen }) => {
   // To update Top Loading Bar and change Title of tab
   const updateProgress = () => {
-    props.setProgress(100);
     document.title = "Your Notes - zNotebook";
   };
 
@@ -43,11 +42,7 @@ export const Notes = (props) => {
   return (
     <div className="flex min-h-screen bg-gray-900">
       {/* Sidebar */}
-      <Sidebar
-        open={sidebarOpen}
-        setOpen={setSidebarOpen}
-        onOpenNote={setActiveNote}
-      />
+      <Sidebar open={open} setOpen={setOpen} />
 
       {/* Main content area */}
       <main className="flex-1 flex items-center justify-center transition-all duration-300">
@@ -68,7 +63,7 @@ export const Notes = (props) => {
             <button
               onClick={() => setWriting(true)}
               type="button"
-              className="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none dark:focus:ring-green-800 font-medium rounded-lg text-lg px-8 py-4 text-center mb-2 mt-5 shadow-lg"
+              className="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl font-medium rounded-lg text-lg px-8 py-4 text-center mb-2 mt-5 shadow-lg"
             >
               Create Blog
             </button>
