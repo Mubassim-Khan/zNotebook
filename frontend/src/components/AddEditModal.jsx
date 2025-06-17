@@ -14,6 +14,14 @@ export const AddEditModal = ({
   const { addNote } = context;
 
   const [note, setNote] = useState({ title: "", description: "", tag: "" });
+  const [isTagEnabled, setIsTagEnabled] = useState(true);
+
+  // When disabling, clear the tag field
+  useEffect(() => {
+    if (!isTagEnabled) {
+      setNote((prev) => ({ ...prev, tag: "" }));
+    }
+  }, [isTagEnabled]);
 
   useEffect(() => {
     if (noteToEdit) {
@@ -61,16 +69,16 @@ export const AddEditModal = ({
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-50">
       <div className="relative p-4 w-full max-w-md max-h-full animate-zoom-in-scale">
-        <div className="relative bg-white rounded-lg shadow-sm">
+        <div className="relative bg-gray-900 rounded-lg shadow-sm">
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b rounded-t border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-900">
+            <h3 className="text-lg font-semibold text-gray-100">
               {noteToEdit ? "Edit Note" : "Add Note"}
             </h3>
             <button
               type="button"
               onClick={closeModal}
-              className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8"
+              className="text-gray-400 bg-transparent hover:bg-gray-600 hover:text-gray-900 rounded-lg text-sm w-8 h-8"
             >
               ✕
             </button>
@@ -78,10 +86,11 @@ export const AddEditModal = ({
           {/* Form */}
           <form className="p-4" onSubmit={handleSubmit}>
             <div className="grid gap-4 mb-4">
+              {/* Input title */}
               <div>
                 <label
                   htmlFor="title"
-                  className="block mb-2 text-sm font-medium text-gray-900"
+                  className="block mb-2 text-sm font-medium text-gray-100"
                 >
                   Title
                 </label>
@@ -96,14 +105,15 @@ export const AddEditModal = ({
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5"
                   placeholder="Enter note title"
                 />
-                <div className="text-xs text-gray-500 mt-1">
+                <div className="text-xs text-gray-300 mt-1">
                   *Title must be at least 3 characters long.
                 </div>
               </div>
+              {/* Input Description */}
               <div>
                 <label
                   htmlFor="description"
-                  className="block mb-2 text-sm font-medium text-gray-900"
+                  className="block mb-2 text-sm font-medium text-gray-100"
                 >
                   Description
                 </label>
@@ -118,14 +128,27 @@ export const AddEditModal = ({
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5"
                   placeholder="Enter note description"
                 />
-                <div className="text-xs text-gray-500 mt-1">
+                <div className="text-xs text-gray-300 mt-1">
                   *Description must be at least 5 characters long.
                 </div>
               </div>
+              {/* Tag Input */}
+              <label className="inline-flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  className="sr-only peer"
+                  onChange={() => setIsTagEnabled((v) => !v)}
+                  checked={isTagEnabled}
+                />
+                <div className="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
+                <span className="ms-3 text-sm font-medium text-gray-200">
+                  Enable Tag
+                </span>
+              </label>
               <div>
                 <label
                   htmlFor="tag"
-                  className="block mb-2 text-sm font-medium text-gray-900"
+                  className="block mb-2 text-sm font-medium text-gray-100"
                 >
                   Tag
                 </label>
@@ -137,8 +160,9 @@ export const AddEditModal = ({
                   onChange={onChange}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5"
                   placeholder="Enter tag (optional)"
+                  disabled={!isTagEnabled}
                 />
-                <div className="text-xs text-gray-500 mt-1">
+                <div className="text-sm font-medium text-gray-300 mt-1">
                   Enter tag to easily categorize notes.
                 </div>
               </div>

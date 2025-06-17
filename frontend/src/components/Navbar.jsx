@@ -18,7 +18,7 @@ export const Navbar = ({ open, setOpen }) => {
 
   return (
     <nav
-      className={"w-full fixed top-0 z-50 transition-all bg-gray-800 shadow"}
+      className={"w-full fixed top-0 z-50 transition-all bg-zinc-950 shadow border-gray-500"}
     >
       <div className="container mx-auto px-4 flex items-center justify-between h-16">
         <div className="flex items-center">
