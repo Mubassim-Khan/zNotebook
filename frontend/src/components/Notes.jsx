@@ -42,7 +42,7 @@ export const Notes = ({ open, setOpen }) => {
   return (
     <div className="flex min-h-screen bg-gray-900">
       {/* Sidebar */}
-      <Sidebar open={open} setOpen={setOpen} />
+      <Sidebar open={open} setOpen={setOpen} onOpenNote={setActiveNote} />
 
       {/* Main content area */}
       <main className="flex-1 flex items-center justify-center transition-all duration-300">

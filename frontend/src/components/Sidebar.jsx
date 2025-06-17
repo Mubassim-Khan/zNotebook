@@ -12,6 +12,8 @@ export const Sidebar = ({ open, setOpen, onOpenNote }) => {
   const context = useContext(noteContext);
   const { loading, notes, fetchNotes, editNote } = context;
 
+  const [showSpinner, setShowSpinner] = useState(true);
+
   const [selectedNote, setSelectedNote] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [menuOpenId, setMenuOpenId] = useState(null);
@@ -43,7 +45,11 @@ export const Sidebar = ({ open, setOpen, onOpenNote }) => {
 
   // Fetch notes on mount
   useEffect(() => {
+    setShowSpinner(true);
     fetchNotes();
+    // Show spinner for at least 3 seconds
+    const timer = setTimeout(() => setShowSpinner(false), 3500);
+    return () => clearTimeout(timer);
     // eslint-disable-next-line
   }, []);
 
@@ -91,7 +97,7 @@ export const Sidebar = ({ open, setOpen, onOpenNote }) => {
             <div className="p-4 flex flex-col gap-4 flex-1 h-0">
               <button
                 onClick={handleAddNote}
-                className="flex items-center justify-center gap-2 text-white bg-gray-600 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
+                className="flex items-center justify-center gap-2 text-white bg-gray-600 hover:bg-gray-700 font-medium rounded-lg text-sm px-4 py-2"
                 type="button"
               >
                 <IoMdAdd className="w-5 h-5" /> Add Note
@@ -99,11 +105,11 @@ export const Sidebar = ({ open, setOpen, onOpenNote }) => {
               <div className="flex-1 overflow-y-auto">
                 {loading ? (
                   <Spinner />
-                ) : notes.length === 0 ? (
+                ) : Array.isArray(notes) && notes.length === 0 ? (
                   <div className="text-gray-400 text-center mt-10">
                     No notes to display.
                   </div>
-                ) : (
+                ) : Array.isArray(notes) ? (
                   <ul className="space-y-1">
                     {notes.map((note) => (
                       <li
@@ -157,12 +163,16 @@ export const Sidebar = ({ open, setOpen, onOpenNote }) => {
                       </li>
                     ))}
                   </ul>
+                ) : (
+                  <div className="text-red-400 text-center mt-10">
+                    Error loading notes. Please try again later.
+                  </div>
                 )}
               </div>
             </div>
           </>
         )}
-      </div>      
+      </div>
       <DeleteModal
         removeArticle={async (id) => {
           try {
