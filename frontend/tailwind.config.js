@@ -1,15 +1,15 @@
 /** @type {import('tailwindcss').Config} */
+import defaultTheme from 'tailwindcss/defaultTheme';
+
 export default {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}"
-  ],
+  content: ["./src/**/*.{js,jsx,ts,tsx}", "./index.html"],
   theme: {
-    colors: {
-      "bg": 'hsl(323 21% 16%)',
-      "neon": 'hsl(317 100% 54%)'
+    extend: {
+      colors: {
+        bg: "hsl(323 21% 16%)",
+        neon: "hsl(317 100% 54%)",
+      },
     },
-    extend: {},
   },
   plugins: [],
-}
-
+};
