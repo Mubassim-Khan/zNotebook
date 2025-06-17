@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import noteContext from "../context/notes/noteContext";
 import { Spinner } from "./Spinner";
 import { AddEditModal } from "./AddEditModal";
+import { DeleteModal } from "./DeleteModal";
 
 export const Sidebar = ({ onOpenNote }) => {
   const context = useContext(noteContext);
@@ -15,6 +16,9 @@ export const Sidebar = ({ onOpenNote }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [menuOpenId, setMenuOpenId] = useState(null);
+
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [noteToDelete, setNoteToDelete] = useState(null);
 
   const menuRefs = useRef({});
 
@@ -37,6 +41,12 @@ export const Sidebar = ({ onOpenNote }) => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [menuOpenId]);
+
+  // Fetch notes on mount
+  useEffect(() => {
+    fetchNotes();
+    // eslint-disable-next-line
+  }, []);
 
   const handleAddNote = () => {
     setSelectedNote(null);
@@ -141,7 +151,11 @@ export const Sidebar = ({ onOpenNote }) => {
                           </button>
                           <button
                             className="flex items-center w-full px-3 py-2 text-sm text-red-600 hover:bg-red-100"
-                            onClick={() => handleDeleteNote(note)}
+                            onClick={() => {
+                              setNoteToDelete(note);
+                              setDeleteModalOpen(true);
+                              setMenuOpenId(null);
+                            }}
                           >
                             <FiTrash2 className="mr-2" /> Delete
                           </button>
@@ -165,12 +179,30 @@ export const Sidebar = ({ onOpenNote }) => {
           <IoMdMenu size={28} />
         </button>
       )}
+<DeleteModal
+  removeArticle={async (id) => {
+    try {
+      await context.deleteNote(id);
+      toast.success("Note deleted");
+    } catch {
+      toast.error("Could not delete note, Please try again later.");
+    }
+    setDeleteModalOpen(false);
+    setNoteToDelete(null);
+  }}
+  articleId={noteToDelete?._id}
+  isOpen={deleteModalOpen}
+  onClose={() => setDeleteModalOpen(false)}
+  noteTitle={noteToDelete?.title}
+/>
+
       <AddEditModal
         isOpen={isModalOpen}
         closeModal={() => setIsModalOpen(false)}
         editNote={editNote}
         noteToEdit={selectedNote}
       />
+
     </>
   );
 };

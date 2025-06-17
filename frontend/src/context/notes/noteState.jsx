@@ -3,7 +3,7 @@ import NoteContext from "./noteContext";
 import toast from "react-hot-toast";
 
 const NoteState = (props) => {
-    const hostURL = import.meta.env.VITE_HOST_URL || "http://localhost:8080";
+    const hostURL = import.meta.env.VITE_HOST_URL;
     const initialNotes = [];
     const [notes, setNotes] = useState(initialNotes);
 

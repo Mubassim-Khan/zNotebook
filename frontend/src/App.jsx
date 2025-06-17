@@ -6,7 +6,6 @@ import { Routes, Route } from "react-router-dom";
 import { Notes } from "./components/Notes";
 import { Login } from "./components/Login";
 import { Signup } from "./components/Signup";
-import { Footer } from "./components/Footer";
 
 function App() {
   const [progress, setProgress] = useState(0);
@@ -44,7 +43,6 @@ function App() {
           ></Route>
         </Routes>
       </div>
-      {/* <Footer /> */}
     </>
   );
 }

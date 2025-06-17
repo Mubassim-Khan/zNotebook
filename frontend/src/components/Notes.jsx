@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 import noteContext from "../context/notes/noteContext";
 import { Sidebar } from "./Sidebar";
