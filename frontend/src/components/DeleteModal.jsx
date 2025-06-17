@@ -12,8 +12,8 @@ export const DeleteModal = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+      <div className="bg-gray-800 rounded-lg shadow-lg p-6 w-full animate-zoom-in-scale max-w-sm">
         <h2 className="text-lg font-bold mb-4">Delete Note</h2>
         <p className="mb-6">
           Are you sure you want to delete{" "}
@@ -21,7 +21,7 @@ export const DeleteModal = ({
         </p>
         <div className="flex justify-end gap-2">
           <button
-            className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300"
+            className="px-4 py-2 rounded bg-gray-600 hover:bg-gray-700"
             onClick={onClose}
           >
             Cancel

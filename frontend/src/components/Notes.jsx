@@ -37,21 +37,27 @@ export const Notes = (props) => {
 
   // Optional: For the "Create Blog" button
   const [writing, setWriting] = useState(false);
+  
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
     <div className="flex min-h-screen bg-gray-900">
       {/* Sidebar */}
-      <Sidebar onOpenNote={setActiveNote} />
+      <Sidebar
+        open={sidebarOpen}
+        setOpen={setSidebarOpen}
+        onOpenNote={setActiveNote}
+      />
 
       {/* Main content area */}
-      <main className="flex-1 flex flex-col items-center justify-center min-h-screen">
+      <main className="flex-1 flex items-center justify-center transition-all duration-300">
         {activeNote ? (
-          <div className="w-full max-w-2xl mx-auto">
+          <div className="w-full max-w-2xl">
             <NoteCard note={activeNote} />
           </div>
         ) : (
-          <div className="w-full max-w-2xl mx-auto flex flex-col items-center justify-center">
-            <p className="mb-8 font-bold text-5xl my-2 text-center flex flex-wrap  justify-center">
+          <div className="w-full max-w-2xl flex flex-col items-center justify-center">
+            <p className="mb-8 font-bold text-5xl my-2 text-center flex flex-wrap justify-center">
               Welcome,
               <span className="bg-gradient-to-r from-purple-400 via-blue-500 to-red-500 bg-clip-text text-transparent ml-3">
                 {showLoggedInUsername()}
@@ -64,7 +70,6 @@ export const Notes = (props) => {
             >
               Create Blog
             </button>
-            {/* You can render a blog editor/modal if writing === true */}
           </div>
         )}
       </main>
