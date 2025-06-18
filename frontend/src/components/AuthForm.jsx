@@ -1,4 +1,9 @@
 import { Link } from "react-router-dom";
+import GoogleButton from "react-google-button";
+import { MdEmail } from "react-icons/md";
+
+import googleIcon from "../assets/images/google-icon.svg";
+import githubIcon from "../assets/images/github-icon.svg";
 
 export const AuthForm = ({
   type,
@@ -75,19 +80,44 @@ export const AuthForm = ({
               </label>
             </div>
           )}
+          {/* Email button */}
           <button
             type="submit"
-            className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm mx-auto block px-5 py-2.5 text-center mt-3"
+            className={`flex items-center justify-center text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm mx-auto px-5 py-3.5 text-center mt-3 w-full ${
+              disabled ? "opacity-50 cursor-not-allowed" : ""
+            }`}
             disabled={disabled}
           >
+            <MdEmail className="w-[20px] h-[20px] mr-3" />
             {submitLabel}
+          </button>
+          {/* Google button */}
+          <button
+            type="submit"
+            className="flex items-center justify-center text-black bg-[#e0e0e0] hover:bg-[#ebebeb] font-medium rounded-lg text-sm mx-auto px-5 py-1 text-center w-full mt-3"
+          >
+            <img
+              src={googleIcon}
+              alt="Google icon"
+              className="w-[40px] h-[40px]"
+            />
+            Continue with Google
+          </button>
+          {/* GitHub button */}
+          <button
+            type="submit"
+            className="flex items-center justify-center text-white bg-[#24292F] hover:bg-[#24292F]/90 font-medium rounded-lg text-sm mx-auto px-5 py-3.5 text-center w-full mt-3"
+          >
+            <img
+              src={githubIcon}
+              alt="GitHub icon"
+              className="w-[20px] h-[20px] mr-3"
+            />
+            Continue with GitHub
           </button>
           <div className="text-center text-sm mt-4 text-gray-600">
             {redirectText}
-            <Link
-              className="text-blue-600 ml-1"
-              to={redirectLink}
-            >
+            <Link className="text-blue-600 ml-1" to={redirectLink}>
               {redirectLabel}
             </Link>
           </div>
