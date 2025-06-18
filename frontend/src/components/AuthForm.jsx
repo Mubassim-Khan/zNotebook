@@ -19,8 +19,9 @@ export const AuthForm = ({
   redirectLink,
   redirectLabel,
   children,
+  isUsernameInvalid,
 }) => (
-  <div className="flex min-h-screen items-center justify-center bg-gray-100">
+  <div className="pt-20 flex min-h-[calc(100vh-64px)] items-center justify-center bg-gray-100 overflow-y-auto">
     <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg flex flex-col md:flex-row overflow-hidden">
       {/* Image on the right for md+ screens */}
       <div className="hidden md:flex md:w-1/2 items-center justify-center bg-gray-100">
@@ -53,11 +54,22 @@ export const AuthForm = ({
               >
                 {field.label}
               </label>
+              Help text
               {field.help && (
-                <div className="text-xs text-gray-500 mt-1">{field.help}</div>
+                <div className="text-xs text-gray-500 text-bold">
+                  {field.help}
+                </div>
+              )}
+              {/* Username validation error */}
+              {field.name === "username" && isUsernameInvalid && (
+                <div className="text-red-600 text-sm mt-1">
+                  ⚠️ Username must be at least 4 characters long and can only
+                  include letters, numbers, hyphens (-), and underscores (_).
+                </div>
               )}
             </div>
           ))}
+
           {children}
           {type === "login" && (
             <div className="flex items-start mb-5">
@@ -80,6 +92,7 @@ export const AuthForm = ({
               </label>
             </div>
           )}
+
           {/* Email button */}
           <button
             type="submit"
@@ -91,6 +104,7 @@ export const AuthForm = ({
             <MdEmail className="w-[20px] h-[20px] mr-3" />
             {submitLabel}
           </button>
+
           {/* Google button */}
           <button
             type="submit"
@@ -103,6 +117,7 @@ export const AuthForm = ({
             />
             Continue with Google
           </button>
+
           {/* GitHub button */}
           <button
             type="submit"
