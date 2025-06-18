@@ -78,7 +78,7 @@ export const Sidebar = ({ open, setOpen, onOpenNote }) => {
       <div
         className={`fixed left-0 top-16 h-[calc(100vh-4rem)] ${
           open ? "w-72" : "w-0"
-        } bg-gray-800 shadow-lg z-60 flex flex-col transition-all duration-300 overflow-hidden`}
+        } bg-gray-800 shadow-lg z-40 flex flex-col transition-all duration-300 overflow-hidden`}
       >
         {open && (
           <>

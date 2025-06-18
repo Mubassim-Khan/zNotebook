@@ -2,6 +2,8 @@ import { useContext, useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { IoMdAdd } from "react-icons/io";
 import { FiEdit } from "react-icons/fi";
+import ReactQuill from "react-quill-new";
+
 import noteContext from "../context/notes/noteContext";
 
 export const AddEditModal = ({
@@ -117,7 +119,14 @@ export const AddEditModal = ({
                 >
                   Description
                 </label>
-                <input
+                <ReactQuill
+                  theme="snow"
+                  value={note.description}
+                  id="description"
+                  onChange={onChange}
+                  placeholder="Write your description here..."
+                />
+                {/* <input
                   type="text"
                   id="description"
                   name="description"
@@ -130,7 +139,7 @@ export const AddEditModal = ({
                 />
                 <div className="text-xs text-gray-300 mt-1">
                   *Description must be at least 5 characters long.
-                </div>
+                </div> */}
               </div>
               {/* Tag Input */}
               <label className="inline-flex items-center cursor-pointer">
