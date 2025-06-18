@@ -75,3 +75,120 @@ select:focus {
   background: #c2c9d2;
 }
 
+/* Quill Text Editor Custom styles */
+.custom-quill .ql-container {
+  background: #f9fafb; 
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
+  min-height: 200px;
+}
+
+.custom-quill .ql-editor {
+  font-weight: 500;
+  min-height: 160px;
+  padding: 1rem; /* Tailwind's p-4 */
+  color: #111827; /* Tailwind's text-gray-900 */
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  background: transparent;
+  font-style: normal;
+  border-radius: 0.5rem;
+}
+
+/* Style the Quill toolbar itself */
+.ql-toolbar {
+  background-color: #1f2937;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #374151;
+  margin-bottom: 1px;
+}
+
+/* Style all toolbar buttons */
+.ql-toolbar button {
+  background-color: #4b5563; /* Blue background */
+  color: #f9fafb;
+  border: none;
+  padding: 6px 10px;
+  margin-right: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+}
+
+/* Hover effect */
+.ql-toolbar button:hover {
+  background-color: #6b7280;
+}
+
+/* Style active buttons (e.g., bold is toggled on) */
+.ql-toolbar button.ql-active {
+  background-color: #2563eb;
+}
+
+/* dropdown pickers (e.g., Font/Size Dropdowns) */
+.ql-toolbar .ql-picker-label {
+  background-color: #374151;
+  color: #f9fafb !important;
+  padding: 6px 10px;
+  border-radius: 5px;
+  margin-right: 5px;
+  display: flex;
+  align-items: center;
+  height: 36px;
+  margin-bottom: 10rem;
+}
+
+.ql-toolbar .ql-picker-options {
+  background-color: #1f2937;
+  color: #063f77;
+  border: 1px solid #374151;
+  border-radius: 4px;
+  margin-bottom: 10rem;
+  margin-top: 4px;
+}
+
+/* Dropdown hover */
+.ql-toolbar .ql-picker-label:hover {
+  background-color: #4b5563;
+}
+
+/* Editor content container */
+.ql-container {
+  background-color: #111827; /* very dark background */
+  color: #f9fafb;
+  border: 1px solid #374151;
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* Fix toolbar icon visibility */
+.ql-toolbar button svg,
+.ql-toolbar .ql-stroke {
+  stroke: #f9fafb !important; /* bright white stroke */
+}
+
+/* Fix icon stroke color for active button */
+.ql-toolbar button.ql-active svg,
+.ql-toolbar button.ql-active .ql-stroke {
+  stroke: #2563eb !important;
+}
+
+.ql-toolbar .ql-picker {
+  color: #f9fafb !important; 
+  display: inline-flex;
+  align-items: center;
+  height: 38px;
+  margin-right: 6px;
+  padding-top: 3px;
+}
+
+.ql-toolbar button,
+.ql-toolbar .ql-picker-label {
+  min-height: 25px;
+  line-height: 1.2;
+}
+
+.ql-snow .ql-picker {
+  height: 38px !important;
+}
