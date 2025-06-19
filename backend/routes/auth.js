@@ -36,7 +36,7 @@ router.post(
     try {
       const { name, username, email, password } = req.body;
 
-      let existingUser = await User.findOne({ $or: [{ email }, { username }] });
+      let existingUser = await User.findOne({ email });
 
       // If user already exsists with same email or username, send status "400" & error message
       if (existingUser) {

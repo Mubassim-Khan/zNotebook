@@ -7,8 +7,6 @@ import Logo from "../assets/images/logo.png";
 
 export const Navbar = ({ open, setOpen }) => {
   const userName = localStorage.getItem("username");
-  console.log(userName)
-
   const navigate = useNavigate();
 
   const handleLogout = () => {
