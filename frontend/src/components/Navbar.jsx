@@ -1,20 +1,11 @@
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 import { TbLayoutSidebarFilled } from "react-icons/tb";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Logo from "../assets/images/logo.png";
+import { Avatar } from "./Avatar";
 
 export const Navbar = ({ open, setOpen }) => {
-  const showUsername = () => localStorage.getItem("username");
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
-    toast.success("Logged out");
-  };
-
   return (
     <nav className={"w-full fixed top-0 z-50 transition-all bg-gray-900"}>
       <div className="container mx-auto px-4 flex items-center justify-between h-16">
@@ -44,20 +35,7 @@ export const Navbar = ({ open, setOpen }) => {
           </Link>
         </div>
 
-        {localStorage.getItem("token") && (
-          <div className="flex items-center space-x-4">
-            <span className="text-gray-200">
-              Signed in as: {showUsername() || "Test User"}
-            </span>
-            <button
-              className="min-w-[90px] px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700 transition"
-              type="button"
-              onClick={handleLogout}
-            >
-              Log out
-            </button>
-          </div>
-        )}
+        <Avatar />
       </div>
     </nav>
   );
