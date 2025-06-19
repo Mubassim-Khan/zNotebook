@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { IoMdMenu } from "react-icons/io";
+import { TbLayoutSidebarFilled } from "react-icons/tb";
 import { Link, useNavigate } from "react-router-dom";
 
 import Logo from "../assets/images/logo.png";
@@ -16,28 +16,26 @@ export const Navbar = ({ open, setOpen }) => {
   };
 
   return (
-    <nav
-      className={
-        "w-full fixed top-0 z-50 transition-all bg-zinc-950 shadow border-gray-500"
-      }
-    >
+    <nav className={"w-full fixed top-0 z-50 transition-all bg-gray-900"}>
       <div className="container mx-auto px-4 flex items-center justify-between h-16">
         <div className="flex items-center">
           {/* Sidebar toggle button */}
           {localStorage.getItem("token") &&
             (open ? (
-              <span
-                className="mr-3 p-2"
-                style={{ width: 40, display: "inline-block" }}
-              />
+              <button
+                className="mr-8 bg-gray-900 text-white shadow-lg hover:bg-gray-700 transition-all duration-400 ease-in-out rounded-[5px] p-[5px]"
+                onClick={() => setOpen(false)}
+                aria-label="Close sidebar"
+              >
+                <TbLayoutSidebarFilled size={30} />
+              </button>
             ) : (
               <button
-                className="mr-3 p-2 bg-gray-700 text-white shadow-lg hover:bg-gray-800 transition rounded"
+                className="mr-8 bg-gray-900 text-white shadow-lg hover:bg-gray-700 transition-all duration-400 ease-in-out rounded-[5px] p-[5px]"
                 onClick={() => setOpen(true)}
                 aria-label="Open sidebar"
-                style={{ width: 40 }}
               >
-                <IoMdMenu size={28} />
+                <TbLayoutSidebarFilled size={30} />
               </button>
             ))}
           <Link to="/" className="flex items-center">

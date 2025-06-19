@@ -27,7 +27,7 @@ function App() {
           <Route
             exact
             path="/"
-            element={<Notes setProgress={setProgress} open={sidebarOpen} setOpen={setSidebarOpen} />}
+            element={<Notes setProgress={setProgress} open={sidebarOpen} />}
           ></Route>
         </Routes>
         <Routes>

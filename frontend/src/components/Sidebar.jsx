@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState, useRef } from "react";
-import { IoMdMenu, IoMdClose, IoMdAdd } from "react-icons/io";
+import { IoMdAdd } from "react-icons/io";
 import { FiMoreVertical, FiEdit, FiTrash2 } from "react-icons/fi";
 import toast from "react-hot-toast";
 
@@ -85,13 +85,6 @@ export const Sidebar = ({ open, setOpen, onOpenNote }) => {
             {/* Header */}
             <div className="flex items-center justify-between px-4 py-4 border-b border-gray-700 z-50">
               <h2 className="text-xl font-bold text-white">Your Notes</h2>
-              <button
-                className="p-1 rounded-full hover:bg-gray-700 transition"
-                onClick={() => setOpen(false)}
-                aria-label="Close sidebar"
-              >
-                <IoMdClose size={24} className="text-white" />
-              </button>
             </div>
             {/* Content */}
             <div className="p-4 flex flex-col gap-4 flex-1 h-0">
