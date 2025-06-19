@@ -42,7 +42,7 @@ export const Notes = ({ open, setProgress }) => {
 
   return (
     <div className="flex min-h-screen bg-gray-900">
-      {/* Sidebar */
+      {/* Sidebar */}
       <Sidebar open={open} onOpenNote={setActiveNote} />
 
       {/* Main content area */}

@@ -27,6 +27,7 @@ export const Login = (props) => {
         if (json.success === true) {
           localStorage.setItem("token", json.authtoken);
           localStorage.setItem("name", json.name);
+          localStorage.setItem("email", json.email);
           localStorage.setItem("username", json.username);
           return { status: "success" };
         } else {
