@@ -30,11 +30,10 @@ export const Navbar = ({ open, setOpen }) => {
               </button>
             ))}
           <Link to="/" className="flex items-center">
-            <img className="h-9 mr-2" src={Logo} alt="Logo" />
-            <span className="font-bold text-lg">zNotebook</span>
+            {/* <img className="h-9 mr-2 rounded-full " src={Logo} alt="Logo" /> */}
+            <span className="font-normal text-2xl">zNotebook</span>
           </Link>
         </div>
-
         <Avatar />
       </div>
     </nav>
