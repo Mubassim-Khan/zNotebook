@@ -1,72 +1,68 @@
-import { useEffect, useState } from 'react';
-import { Container, Navbar as NavBar, Nav } from 'react-bootstrap';
-import toast from 'react-hot-toast';
-import Logo from '../assets/images/logo.png';
-import { Link, useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { IoMdMenu } from "react-icons/io";
+import { Link, useNavigate } from "react-router-dom";
 
-export const Navbar = () => {
-     const userName = localStorage.getItem('name')
+import Logo from "../assets/images/logo.png";
 
-  const [scrolled, setScrolled] = useState(false);
-  const [activeLink, setActiveLink] = useState("home");
-  useEffect(() => {
-    const onScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true)
-      } else {
-        setScrolled(false)
-      }
-    }
-    window.addEventListener("scroll", onScroll);
-
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [])
-
-  const onUpdateActiveLink = (value) => {
-    setActiveLink(value);
-  }
+export const Navbar = ({ open, setOpen }) => {
+  const userName = localStorage.getItem("username");
+  console.log(userName)
 
   const navigate = useNavigate();
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/login");
-    toast.success("Logged out")
-  }
+    toast.success("Logged out");
+  };
 
   return (
-    <NavBar expand="md" className={scrolled ? "scrolled" : ''}>
-      <Container>
-        <NavBar.Brand href="/">
-          <img className="navbar-logo" src={Logo} alt="Logo" />
-          <span className='navbar-logo-text mx-1'>zNotebook</span>
-        </NavBar.Brand>
-        <NavBar.Toggle aria-controls="basic-navbar-nav">
-          <span className="navbar-toggle-icon"></span>
-        </NavBar.Toggle>
-        <NavBar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto mx-5">
-            <Nav.Link href="/" className={activeLink === 'home' ? "active navbar-link" : "navbar-link"} onClick={() => onUpdateActiveLink('home')}>Home</Nav.Link>
-            <Nav.Link href="#about" className={activeLink === 'about' ? "active navbar-link" : "navbar-link"} onClick={() => onUpdateActiveLink('about')}>About</Nav.Link>
-            <Nav.Link href="/notes" className={activeLink === 'notes' ? "active navbar-link" : "navbar-link"} onClick={() => onUpdateActiveLink('notes')}>Notes</Nav.Link>
-          </Nav>
-          {!localStorage.getItem("token") ?
-            <span className="navbar-text">
-              <Link to='/login'>
-                <button className="vvd" type="button">Log in</button>
-              </Link>
-              <Link to='/register'>
-                <button className="vvd" type='button'>Register</button>
-              </Link>
-            </span> :
-            (
-              <span className='navbar-text'>
-                <NavBar.Text className='nav-text mx-4'>Signed in as: {!userName ? "" : userName}</NavBar.Text>
-                <button className='vvd' type='button' onClick={handleLogout}>Log out</button>
-              </span>
-            )
-          }
-        </NavBar.Collapse>
-      </Container>
-    </NavBar>
+    <nav
+      className={
+        "w-full fixed top-0 z-50 transition-all bg-zinc-950 shadow border-gray-500"
+      }
+    >
+      <div className="container mx-auto px-4 flex items-center justify-between h-16">
+        <div className="flex items-center">
+          {/* Sidebar toggle button */}
+          {localStorage.getItem("token") &&
+            (open ? (
+              <span
+                className="mr-3 p-2"
+                style={{ width: 40, display: "inline-block" }}
+              />
+            ) : (
+              <button
+                className="mr-3 p-2 bg-gray-700 text-white shadow-lg hover:bg-gray-800 transition rounded"
+                onClick={() => setOpen(true)}
+                aria-label="Open sidebar"
+                style={{ width: 40 }}
+              >
+                <IoMdMenu size={28} />
+              </button>
+            ))}
+          <Link to="/" className="flex items-center">
+            <img className="h-9 mr-2" src={Logo} alt="Logo" />
+            <span className="font-bold text-lg">zNotebook</span>
+          </Link>
+        </div>
+
+        {localStorage.getItem("token") && (
+          <div className="flex items-center space-x-4">
+            <span className="text-gray-200">
+              Signed in as: {userName || "Test User"}
+            </span>
+            <button
+              className="min-w-[90px] px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700 transition"
+              type="button"
+              onClick={handleLogout}
+            >
+              Log out
+            </button>
+          </div>
+        )}
+      </div>
+    </nav>
   );
-}
+};
