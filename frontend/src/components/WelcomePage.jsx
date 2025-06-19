@@ -8,7 +8,7 @@ export const WelcomePage = ({ openAddModal }) => {
     <div className="w-full max-w-2xl flex flex-col items-center justify-center">
       <p className="mb-8 font-bold text-5xl my-2 text-center flex flex-wrap justify-center">
         Welcome,
-        <span className="bg-gradient-to-r from-purple-400 via-blue-500 to-red-500 bg-clip-text text-transparent ml-3">
+        <span className="bg-gradient-to-r from-purple-400 via-blue-500 to-red-500 bg-clip-text text-transparent ml-3 mb-1 py-3">
           {showLoggedInUsername()}
         </span>
       </p>

@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/images/logo.png";
 
 export const Navbar = ({ open, setOpen }) => {
-  const userName = localStorage.getItem("username");
+  const showUsername = () => localStorage.getItem("username");
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -49,7 +49,7 @@ export const Navbar = ({ open, setOpen }) => {
         {localStorage.getItem("token") && (
           <div className="flex items-center space-x-4">
             <span className="text-gray-200">
-              Signed in as: {userName || "Test User"}
+              Signed in as: {showUsername() || "Test User"}
             </span>
             <button
               className="min-w-[90px] px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700 transition"
