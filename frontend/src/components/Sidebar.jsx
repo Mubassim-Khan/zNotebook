@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState, useRef } from "react";
 import { IoMdAdd } from "react-icons/io";
+import { FiMoreVertical, FiEdit, FiTrash2 } from "react-icons/fi";
 import toast from "react-hot-toast";
 
 import noteContext from "../context/notes/noteContext";
@@ -8,23 +9,20 @@ import { AddEditModal } from "./AddEditModal";
 import { DeleteModal } from "./DeleteModal";
 import { NoteOptionsMenu } from "./NoteOptionsMenu";
 
-export const Sidebar = ({
-  open,
-  onOpenNote,
-  menuOpenId,
-  setMenuOpenId,
-  onEdit,
-  onDelete,
-  menuRefs,
-}) => {
+export const Sidebar = ({ open, setOpen, onOpenNote }) => {
   const context = useContext(noteContext);
   const { loading, notes, fetchNotes, editNote } = context;
 
   const [showSpinner, setShowSpinner] = useState(true);
-  const [noteToDelete, setNoteToDelete] = useState(null);
-  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [selectedNote, setSelectedNote] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [menuOpenId, setMenuOpenId] = useState(null);
+
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [noteToDelete, setNoteToDelete] = useState(null);
+
+  const menuRefs = useRef({});
 
   if (!context) {
     console.log("Note Context is null");
