@@ -14,7 +14,7 @@ export const NoteCard = ({ note }) => {
   const localDateTime = convertToLocalTime(note.date);
 
   return (
-    <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 animate-fade-in-scale">
+    <div className="bg-gray-800 rounded-lg shadow-md p-4 flex flex-col justify-between h-64">
       <div className="flex items-center justify-between mb-2">
         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
           {note.title}
@@ -25,9 +25,10 @@ export const NoteCard = ({ note }) => {
           </span>
         )}
       </div>
-      <p className="font-normal text-gray-700 dark:text-gray-400">
-        {note.description}
-      </p>
+      <div
+        className="prose prose-invert max-w-none text-sm overflow-auto flex-1 mb-4"
+        dangerouslySetInnerHTML={{ __html: note.description }}
+      />
       <div className="flex items-center justify-between mt-4">
         <span className="text-xs text-gray-300">
           Created at: {localDateTime.localDate} {localDateTime.localTime}

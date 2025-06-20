@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 import defaultTheme from "tailwindcss/defaultTheme";
+import typography from "@tailwindcss/typography";
 
 export default {
   content: ["./src/**/*.{js,jsx,ts,tsx}", "./index.html"],
@@ -18,12 +19,17 @@ export default {
           "0%": { opacity: "0", transform: "scale(0.8)" },
           "100%": { opacity: "1", transform: "scale(1)" },
         },
+        zoomOut: {
+          "0%": { opacity: "1", transform: "scale(1)" },
+          "100%": { opacity: "0", transform: "scale(0.8)" },
+        },
       },
       animation: {
         "fade-in-scale": "fadeIn 0.3s ease-out",
-        "zoom-in-scale": "zoomIn 0.3s ease-out",
+        "zoom-in-scale": "zoomIn 0.2s ease-out",
+        "zoom-out-scale": "zoomOut 0.2s ease-out",
       },
     },
   },
-  plugins: [],
+  plugins: [typography],
 };

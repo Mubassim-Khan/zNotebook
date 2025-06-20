@@ -7,6 +7,7 @@ import noteContext from "../context/notes/noteContext";
 import { Spinner } from "./Spinner";
 import { AddEditModal } from "./AddEditModal";
 import { DeleteModal } from "./DeleteModal";
+import { NoteOptionsMenu } from "./NoteOptionsMenu";
 
 export const Sidebar = ({ open, setOpen, onOpenNote }) => {
   const context = useContext(noteContext);
@@ -116,43 +117,18 @@ export const Sidebar = ({ open, setOpen, onOpenNote }) => {
                         >
                           {note.title}
                         </span>
-                        <div className="relative flex-shrink-0 ml-2">
-                          <button
-                            className="p-1 rounded-full hover:bg-gray-700 transition"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setMenuOpenId(
-                                menuOpenId === note._id ? null : note._id
-                              );
-                            }}
-                            aria-label="Note options"
-                          >
-                            <FiMoreVertical size={18} className="text-white" />
-                          </button>
-                          {menuOpenId === note._id && (
-                            <div
-                              ref={(el) => (menuRefs.current[note._id] = el)}
-                              className="absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded shadow-lg z-50"
-                            >
-                              <button
-                                className="flex items-center w-full px-3 py-2 text-sm text-gray-700 hover:bg-blue-100"
-                                onClick={() => handleEditNote(note)}
-                              >
-                                <FiEdit className="mr-2" /> Edit
-                              </button>
-                              <button
-                                className="flex items-center w-full px-3 py-2 text-sm text-red-600 hover:bg-red-100"
-                                onClick={() => {
-                                  setNoteToDelete(note);
-                                  setDeleteModalOpen(true);
-                                  setMenuOpenId(null);
-                                }}
-                              >
-                                <FiTrash2 className="mr-2" /> Delete
-                              </button>
-                            </div>
-                          )}
-                        </div>
+
+                        <NoteOptionsMenu
+                          note={note}
+                          menuOpenId={menuOpenId}
+                          setMenuOpenId={setMenuOpenId}
+                          onEdit={handleEditNote}
+                          onDelete={(note) => {
+                            setNoteToDelete(note);
+                            setDeleteModalOpen(true);
+                          }}
+                          menuRefs={menuRefs}
+                        />
                       </li>
                     ))}
                   </ul>
