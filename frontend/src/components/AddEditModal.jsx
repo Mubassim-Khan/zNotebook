@@ -9,49 +9,36 @@ import noteContext from "../context/notes/noteContext";
 export const AddEditModal = ({
   isOpen,
   closeModal,
-  editNote, // function to update note
-  noteToEdit = null, // note object if editing, else null
+  editNote,
+  noteToEdit = null,
 }) => {
   const context = useContext(noteContext);
   const { addNote } = context;
 
   const [note, setNote] = useState({ title: "", description: "", tag: "" });
   const [isTagEnabled, setIsTagEnabled] = useState(true);
+  const [isClosing, setIsClosing] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const disabled =
     note.title.length < 3 ||
     note.description.length < 5 ||
     (isTagEnabled && !note.tag.trim());
 
-  // When disabling, clear the tag field
+  // Clear tag when toggle off
   useEffect(() => {
     if (!isTagEnabled) {
       setNote((prev) => ({ ...prev, tag: "" }));
     }
   }, [isTagEnabled]);
 
-  useEffect(() => {
-    if (noteToEdit) {
-      setNote({
-        title: noteToEdit.title || "",
-        description: noteToEdit.description || "",
-        tag: noteToEdit.tag || "",
-      });
-    } else {
-      setNote({ title: "", description: "", tag: "" });
-    }
-  }, [noteToEdit, isOpen]);
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (note.title.trim().length < 3) {
-      toast.error("Title must be at least 3 characters.");
-      return;
-    }
-    if (note.description.trim().length < 5) {
-      toast.error("Description must be at least 5 characters.");
-      return;
-    }
+    if (note.title.trim().length < 3)
+      return toast.error("Title must be at least 3 characters.");
+    if (note.description.trim().length < 5)
+      return toast.error("Description must be at least 5 characters.");
+
     try {
       if (noteToEdit) {
         editNote(noteToEdit._id, note.title, note.description, note.tag);
@@ -60,11 +47,14 @@ export const AddEditModal = ({
         addNote(note.title, note.description, note.tag);
         toast.success("New note added!");
       }
-      closeModal();
-      setNote({ title: "", description: "", tag: "" });
+      handleClose();
     } catch {
       toast.error("Request failed. Try again.");
     }
+  };
+
+  const handleClose = () => {
+    closeModal();
   };
 
   const onChange = (e) => {
@@ -75,33 +65,50 @@ export const AddEditModal = ({
     setNote({ ...note, description: value });
   };
 
-  if (!isOpen) return null;
+  // Reset form when opening or editing
+  useEffect(() => {
+    if (isOpen) {
+      setShowModal(true);
+      setIsClosing(false);
+    } else if (showModal) {
+      setIsClosing(true);
+      const timeout = setTimeout(() => {
+        setShowModal(false);
+      }, 200);
+      return () => clearTimeout(timeout);
+    }
+  }, [isOpen]);
+
+  if (!showModal) return null;
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-50">
-      <div className="relative p-4 w-full max-w-2xl max-h-full animate-zoom-in-scale">
+      <div
+        className={`relative p-4 w-full max-w-2xl max-h-full ${
+          isClosing ? "animate-zoom-out-scale" : "animate-zoom-in-scale"
+        }`}
+      >
         <div className="relative bg-gray-900 rounded-lg shadow-sm flex flex-col max-h-[90vh]">
           {/* Header */}
           <div className="relative flex items-center justify-end p-4 border-b rounded-t border-gray-200">
             <h3 className="absolute left-1/2 -translate-x-1/2 text-3xl font-bold text-gray-100">
               {noteToEdit ? "Edit Note" : "Add Note"}
             </h3>
-
             <button
               type="button"
-              onClick={closeModal}
-              className="text-gray-400 bg-transparent hover:bg-gray-600 hover:text-white rounded-lg text-sm w-8 h-8 flex items-center justify-center"
+              onClick={handleClose}
+              className="text-gray-400 hover:bg-gray-600 hover:text-white rounded-lg text-sm w-8 h-8 flex items-center justify-center"
               aria-label="Close"
             >
               ✕
             </button>
           </div>
 
+          {/* Body */}
           <div className="overflow-y-auto p-4 flex-1">
-            {/* Form */}
             <form className="p-4" onSubmit={handleSubmit}>
               <div className="grid gap-4 mb-4">
-                {/* Input title */}
+                {/* Title */}
                 <div>
                   <label
                     htmlFor="title"
@@ -120,11 +127,9 @@ export const AddEditModal = ({
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
                     placeholder="Enter note title"
                   />
-                  <div className="text-xs text-gray-300 mt-1">
-                    *Title must be at least 3 characters long.
-                  </div>
                 </div>
-                {/* Input Description */}
+
+                {/* Description */}
                 <div>
                   <label
                     htmlFor="description"
@@ -136,14 +141,14 @@ export const AddEditModal = ({
                     theme="snow"
                     value={note.description}
                     id="description"
-                    name="description"
                     onChange={handleQuillChange}
                     placeholder="Write your description here..."
-                    className="custom-quill z-100"
+                    className="custom-quill"
                     style={{ minHeight: 200 }}
                   />
                 </div>
-                {/* Tag Input */}
+
+                {/* Enable Tag Toggle */}
                 <div>
                   <label className="inline-flex items-center cursor-pointer">
                     <input
@@ -152,12 +157,14 @@ export const AddEditModal = ({
                       onChange={() => setIsTagEnabled((v) => !v)}
                       checked={isTagEnabled}
                     />
-                    <div className="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
+                    <div className="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
                     <span className="ms-3 text-sm font-medium text-gray-200">
                       Enable Tag
                     </span>
                   </label>
                 </div>
+
+                {/* Tag Field */}
                 <div>
                   <label
                     htmlFor="tag"
@@ -171,17 +178,16 @@ export const AddEditModal = ({
                     name="tag"
                     value={note.tag}
                     onChange={onChange}
-                    className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 ${
+                    className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 ${
                       !isTagEnabled ? "opacity-50 cursor-not-allowed" : ""
                     }`}
                     placeholder="Enter tag (optional)"
                     disabled={!isTagEnabled}
                   />
-                  <div className="text-sm font-medium text-gray-300 mt-1">
-                    Tip: Add tag to easily categorize notes.
-                  </div>
                 </div>
               </div>
+
+              {/* Submit */}
               <button
                 type="submit"
                 className={`text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 ${
