@@ -18,7 +18,10 @@ export const AddEditModal = ({
   const [note, setNote] = useState({ title: "", description: "", tag: "" });
   const [isTagEnabled, setIsTagEnabled] = useState(true);
 
-  const disabled = note.title.length < 3 || note.description.length < 5 || !note.tag;
+  const disabled =
+    note.title.length < 3 ||
+    note.description.length < 5 ||
+    (isTagEnabled && !note.tag.trim());
 
   // When disabling, clear the tag field
   useEffect(() => {
