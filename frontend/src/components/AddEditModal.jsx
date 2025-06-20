@@ -18,6 +18,8 @@ export const AddEditModal = ({
   const [note, setNote] = useState({ title: "", description: "", tag: "" });
   const [isTagEnabled, setIsTagEnabled] = useState(true);
 
+  const disabled = note.title.length < 3 || note.description.length < 5 || !note.tag;
+
   // When disabling, clear the tag field
   useEffect(() => {
     if (!isTagEnabled) {
@@ -77,18 +79,21 @@ export const AddEditModal = ({
       <div className="relative p-4 w-full max-w-2xl max-h-full animate-zoom-in-scale">
         <div className="relative bg-gray-900 rounded-lg shadow-sm flex flex-col max-h-[90vh]">
           {/* Header */}
-          <div className="flex items-center justify-between p-4 border-b rounded-t border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-100">
+          <div className="relative flex items-center justify-end p-4 border-b rounded-t border-gray-200">
+            <h3 className="absolute left-1/2 -translate-x-1/2 text-3xl font-bold text-gray-100">
               {noteToEdit ? "Edit Note" : "Add Note"}
             </h3>
+
             <button
               type="button"
               onClick={closeModal}
-              className="text-gray-400 bg-transparent hover:bg-gray-600 hover:text-gray-900 rounded-lg text-sm w-8 h-8"
+              className="text-gray-400 bg-transparent hover:bg-gray-600 hover:text-white rounded-lg text-sm w-8 h-8 flex items-center justify-center"
+              aria-label="Close"
             >
               ✕
             </button>
           </div>
+
           <div className="overflow-y-auto p-4 flex-1">
             {/* Form */}
             <form className="p-4" onSubmit={handleSubmit}>
@@ -170,14 +175,16 @@ export const AddEditModal = ({
                     disabled={!isTagEnabled}
                   />
                   <div className="text-sm font-medium text-gray-300 mt-1">
-                    Enter tag to easily categorize notes.
+                    Tip: Add tag to easily categorize notes.
                   </div>
                 </div>
               </div>
               <button
                 type="submit"
-                className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5"
-                disabled={note.title.length < 3 || note.description.length < 5}
+                className={`text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 ${
+                  disabled ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+                disabled={disabled}
               >
                 {noteToEdit ? (
                   <FiEdit className="w-5 h-5 mr-2" />
