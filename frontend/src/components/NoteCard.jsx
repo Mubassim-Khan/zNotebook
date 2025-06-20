@@ -1,4 +1,13 @@
-export const NoteCard = ({ note }) => {
+import { NoteOptionsMenu } from "./NoteOptionsMenu";
+
+export const NoteCard = ({
+  note,
+  menuOpenId,
+  setMenuOpenId,
+  onEdit,
+  onDelete,
+  menuRefs,
+}) => {
   const convertToLocalTime = (isoDateString) => {
     const date = new Date(isoDateString);
     const localDate = date.toLocaleDateString();
@@ -24,6 +33,14 @@ export const NoteCard = ({ note }) => {
             {note.tag}
           </span>
         )}
+        <NoteOptionsMenu
+          note={note}
+          menuOpenId={menuOpenId}
+          setMenuOpenId={setMenuOpenId}
+          onEdit={onEdit}
+          onDelete={onDelete}
+          menuRefs={menuRefs}
+        />{" "}
       </div>
       <div
         className="prose prose-invert max-w-none text-sm overflow-auto flex-1 mb-4"
