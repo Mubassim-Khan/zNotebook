@@ -54,7 +54,7 @@ router.post(
 
       // Adding salt & hashing in user password
       const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(req.body.password, salt);
+      const hashedPassword = await bcrypt.hash(password, salt);
 
       // Create a user
       const user = await User.create({

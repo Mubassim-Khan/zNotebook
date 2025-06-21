@@ -14,7 +14,7 @@ export const NoteCard = ({ note }) => {
   const localDateTime = convertToLocalTime(note.date);
 
   return (
-    <div className="bg-gray-800 rounded-lg shadow-md p-4 flex flex-col justify-between h-64">
+    <div className="bg-gray-800 rounded-lg shadow-md p-4 flex flex-col justify-between h-64 border border-gray-700">
       <div className="flex items-center justify-between mb-2">
         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
           {note.title}

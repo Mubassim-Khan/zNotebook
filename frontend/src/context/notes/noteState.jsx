@@ -1,6 +1,5 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import NoteContext from "./noteContext";
-import toast from "react-hot-toast";
 
 const NoteState = (props) => {
     const hostURL = import.meta.env.VITE_HOST_URL;

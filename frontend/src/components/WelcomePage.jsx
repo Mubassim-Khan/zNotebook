@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-
 export const WelcomePage = ({ openAddModal }) => {
   // For the welcome message
   const showLoggedInUsername = () => localStorage.getItem("name");

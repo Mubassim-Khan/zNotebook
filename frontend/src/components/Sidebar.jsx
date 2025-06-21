@@ -67,6 +67,7 @@ export const Sidebar = ({ open, setOpen, onOpenNote }) => {
   };
 
   const handleOpenNote = (note) => {
+    setSelectedNote(note);
     if (onOpenNote) {
       onOpenNote(note);
     }
@@ -79,7 +80,7 @@ export const Sidebar = ({ open, setOpen, onOpenNote }) => {
       <div
         className={`fixed left-0 top-16 h-[calc(100vh-4rem)] ${
           open ? "w-72" : "w-0"
-        } bg-gray-800 shadow-lg z-40 flex flex-col transition-all duration-300 overflow-hidden`}
+        } bg-gray-800 shadow-lg z-40 flex flex-col transition-all duration-300 overflow-hidden border-r border-gray-700`}
       >
         {open && (
           <>
@@ -108,7 +109,11 @@ export const Sidebar = ({ open, setOpen, onOpenNote }) => {
                     {notes.map((note) => (
                       <li
                         key={note._id}
-                        className="flex items-center justify-between group hover:bg-gray-600 rounded px-2 py-1 cursor-pointer"
+                        className={`flex items-center justify-between group rounded px-2 py-1 cursor-pointer transition-colors duration-200 ${
+                          selectedNote?._id === note._id
+                            ? "bg-blue-700"
+                            : "hover:bg-gray-600"
+                        }`}
                       >
                         <span
                           className="truncate flex-1 text-white"

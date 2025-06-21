@@ -12,7 +12,7 @@ export const Notes = ({ open, setProgress }) => {
   // To update Top Loading Bar and change Title of tab
   const updateProgress = () => {
     setProgress(100);
-    document.title = "Your Notes - zNotebook";
+    document.title = "Home - zNotebook";
   };
 
   let navigate = useNavigate();
@@ -23,7 +23,6 @@ export const Notes = ({ open, setProgress }) => {
     if (localStorage.getItem("token")) {
       fetchNotes();
     } else {
-      toast.error("Login Required.");
       navigate("/login");
     }
   }, []);
