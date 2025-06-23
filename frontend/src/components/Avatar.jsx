@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FaUserCircle, FaMoon } from "react-icons/fa";
 import { IoMdSunny } from "react-icons/io";
 import { PiSignOutBold } from "react-icons/pi";
