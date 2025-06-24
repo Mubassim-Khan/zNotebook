@@ -57,7 +57,7 @@ const NoteState = (props) => {
         // Logic for editing a Note
         for (let i = 0; i < newNotes.length; i++) {
             const element = newNotes[i];
-            if (element.id === id) {
+            if (element._id === id) {
                 newNotes[i].title = title;
                 newNotes[i].description = description;
                 newNotes[i].tag = tag;
@@ -79,7 +79,7 @@ const NoteState = (props) => {
         });
         // eslint-disable-next-line
         const json = await response.json();
-        const newNotes = notes.filter((note) => { return note.id !== id })
+        const newNotes = notes.filter((note) => { return note._id !== id })
         setNotes(newNotes);
     }
 

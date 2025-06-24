@@ -5,6 +5,7 @@ import { FiEdit } from "react-icons/fi";
 import ReactQuill from "react-quill-new";
 
 import noteContext from "../context/notes/noteContext";
+import { useTheme } from "../context/theme/ThemeContext";
 
 export const AddEditModal = ({
   isOpen,
@@ -14,6 +15,7 @@ export const AddEditModal = ({
 }) => {
   const context = useContext(noteContext);
   const { addNote } = context;
+  const { theme } = useTheme();
 
   const [note, setNote] = useState({ title: "", description: "", tag: "" });
   const [isTagEnabled, setIsTagEnabled] = useState(true);
@@ -88,16 +90,32 @@ export const AddEditModal = ({
           isClosing ? "animate-zoom-out-scale" : "animate-zoom-in-scale"
         }`}
       >
-        <div className="relative bg-gray-900 rounded-lg shadow-sm flex flex-col max-h-[90vh]">
+        <div
+          className={`relative rounded-lg shadow-sm flex flex-col max-h-[90vh] ${
+            theme === "dark" ? "bg-gray-900" : "bg-slate-300"
+          }`}
+        >
           {/* Header */}
-          <div className="relative flex items-center justify-end p-4 border-b rounded-t border-gray-200">
-            <h3 className="absolute left-1/2 -translate-x-1/2 text-3xl font-bold text-gray-100">
+          <div
+            className={`relative flex items-center justify-end p-4 border-b rounded-t ${
+              theme === "dark" ? "border-gray-200" : "border-gray-900"
+            } `}
+          >
+            <h3
+              className={`absolute left-1/2 -translate-x-1/2 text-3xl font-bold ${
+                theme === "dark" ? "text-gray-200" : "text-gray-900"
+              }`}
+            >
               {noteToEdit ? "Edit Note" : "Add Note"}
             </h3>
             <button
               type="button"
               onClick={handleClose}
-              className="text-gray-400 hover:bg-gray-600 hover:text-white rounded-lg text-sm w-8 h-8 flex items-center justify-center"
+              className={`rounded-lg text-sm w-8 h-8 flex items-center justify-center ${
+                theme === "dark"
+                  ? "text-gray-400 hover:bg-gray-600"
+                  : "text-gray-900 hover:bg-slate-200"
+              }`}
               aria-label="Close"
             >
               ✕
@@ -112,7 +130,9 @@ export const AddEditModal = ({
                 <div>
                   <label
                     htmlFor="title"
-                    className="block mb-2 text-sm font-medium text-gray-100"
+                    className={`block mb-2 text-sm font-medium ${
+                      theme === "dark" ? "text-gray-200" : "text-gray-900"
+                    }`}
                   >
                     Title
                   </label>
@@ -133,7 +153,9 @@ export const AddEditModal = ({
                 <div>
                   <label
                     htmlFor="description"
-                    className="block mb-2 text-sm font-medium text-gray-100"
+                    className={`block mb-2 text-sm font-medium ${
+                      theme === "dark" ? "text-gray-200" : "text-gray-900"
+                    }`}
                   >
                     Description
                   </label>
@@ -158,7 +180,11 @@ export const AddEditModal = ({
                       checked={isTagEnabled}
                     />
                     <div className="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
-                    <span className="ms-3 text-sm font-medium text-gray-200">
+                    <span
+                      className={`ms-3 text-sm font-medium ${
+                        theme === "dark" ? "text-gray-200" : "text-gray-900"
+                      }`}
+                    >
                       Enable Tag
                     </span>
                   </label>
@@ -168,7 +194,9 @@ export const AddEditModal = ({
                 <div>
                   <label
                     htmlFor="tag"
-                    className="block mb-2 text-sm font-medium text-gray-100"
+                    className={`block mb-2 text-sm font-medium ${
+                      theme === "dark" ? "text-gray-200" : "text-gray-900"
+                    }`}
                   >
                     Tag
                   </label>

@@ -7,6 +7,7 @@ import { Sidebar } from "./Sidebar";
 import { NoteCard } from "./NoteCard";
 import { WelcomePage } from "./WelcomePage";
 import { AddEditModal } from "./AddEditModal";
+import { useTheme } from "../context/theme/ThemeContext";
 
 export const Notes = ({ open, setProgress }) => {
   // To update Top Loading Bar and change Title of tab
@@ -16,6 +17,8 @@ export const Notes = ({ open, setProgress }) => {
   };
 
   let navigate = useNavigate();
+    const { theme } = useTheme();
+  
   // Function call using useEffect
   useEffect(() => {
     updateProgress();
@@ -40,7 +43,9 @@ export const Notes = ({ open, setProgress }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex min-h-screen bg-gray-900">
+    <div className={`flex min-h-screen ${
+      theme === "dark" ? "bg-gray-900 text-white" : "bg-slate-300"
+    }`}>
       {/* Sidebar */}
       <Sidebar open={open} onOpenNote={setActiveNote} />
 

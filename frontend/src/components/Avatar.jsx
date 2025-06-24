@@ -1,14 +1,19 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FaUserCircle, FaMoon } from "react-icons/fa";
 import { IoMdSunny } from "react-icons/io";
 import { PiSignOutBold } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
+import { useTheme } from "../context/theme/ThemeContext";
+
 export const Avatar = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
+
+  const { theme, setTheme } = useTheme();
+  const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
 
   const showUsername = () => localStorage.getItem("username");
   const showEmail = () => localStorage.getItem("email");
@@ -52,30 +57,50 @@ export const Avatar = () => {
 
           <div
             id="userDropdown"
-            className={`absolute right-0 mt-2 z-10 w-44 origin-top-right transform transition-all duration-200 bg-white divide-y divide-gray-100 rounded-lg shadow-sm dark:bg-gray-700 dark:divide-gray-600 ${
+            className={`absolute right-0 mt-2 z-10 w-44 origin-top-right transform transition-all duration-200 divide-y rounded-lg shadow-sm ${
               isOpen
                 ? "scale-100 opacity-100 visible"
                 : "scale-95 opacity-0 invisible"
+            } ${
+              theme === "dark"
+                ? "bg-gray-700 text-gray-100 divide-gray-600"
+                : "bg-gray-200 text-black divide-gray-300"
             }`}
           >
-            <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
+            <div
+              className={`px-4 py-3 text-sm ${
+                theme === "dark" ? "text-gray-200" : "text-gray-900"
+              }`}
+            >
               <div className="mb-1">{showUsername()}</div>
               <div className="font-medium truncate">{showEmail()}</div>
             </div>
             <ul
-              className="py-2 text-sm text-gray-700 dark:text-gray-200"
-              aria-labelledby="avatarButton"
+              className={`py-2 text-sm ${
+                theme === "dark" ? "text-gray-200" : "text-gray-900"
+              }`}
             >
-              <li className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                <FaMoon />
-                <span>Theme</span>
+              <li
+                className={`flex items-center gap-2 px-4 py-2 cursor-pointer ${
+                  theme === "dark"
+                    ? "hover:bg-gray-600 hover:text-white"
+                    : "hover:bg-gray-300 hover:text-black"
+                } `}
+                onClick={toggleTheme}
+              >
+                {theme === "light" ? <FaMoon /> : <IoMdSunny />}
+                <span>{theme === "light" ? "Dark Mode" : "Light Mode"}</span>
               </li>
             </ul>
             <div className="py-1">
               <button
                 type="button"
                 onClick={handleLogout}
-                className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white w-full"
+                className={`flex items-center gap-2 px-4 py-2 text-sm w-full ${
+                  theme === "dark"
+                    ? "hover:bg-gray-600 hover:text-white"
+                    : "hover:bg-gray-300 hover:text-black"
+                }`}
               >
                 <PiSignOutBold />
                 Sign out

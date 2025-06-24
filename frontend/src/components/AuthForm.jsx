@@ -22,14 +22,14 @@ export const AuthForm = ({
   children,
   isUsernameInvalid,
 }) => (
-  <div className="pt-[7rem] pb-20 flex min-h-[calc(100vh-64px)] items-center justify-center bg-gray-100 overflow-y-auto">
+  <div className="pt-[7rem] pb-20 flex min-h-[calc(100vh-64px)] items-center justify-center bg-slate-300 overflow-y-auto">
     <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg flex flex-col md:flex-row overflow-hidden">
       {/* Image on the right for md+ screens */}
       <div className="hidden md:flex md:w-1/2 items-center justify-center bg-gray-100">
         <img src={sideImage} alt="coverImage" className="object-contain h-96" />
       </div>
       {/* Form */}
-      <div className="w-full md:w-1/2 flex flex-col justify-center p-8">
+      <div className="w-full md:w-1/2 flex flex-col justify-center p-8 mt-1">
         <div className="mb-6">
           <h3 className="text-2xl font-bold mb-2 text-gray-800 text-center">
             {title}

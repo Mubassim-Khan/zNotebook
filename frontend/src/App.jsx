@@ -17,8 +17,8 @@ function App() {
       <LoadingBar
         color="blue"
         progress={progress}
-        height={3}
-        transitionTime={300}
+        height={2}
+        transitionTime={100}
         waitingTime={1500}
         onLoaderFinished={() => setProgress(0)}
       />
