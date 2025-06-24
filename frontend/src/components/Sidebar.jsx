@@ -1,16 +1,19 @@
 import { useContext, useEffect, useState, useRef } from "react";
 import { IoMdAdd } from "react-icons/io";
-import { FiMoreVertical, FiEdit, FiTrash2 } from "react-icons/fi";
 import toast from "react-hot-toast";
 
 import noteContext from "../context/notes/noteContext";
+import { useTheme } from "../context/theme/ThemeContext";
+
 import { Spinner } from "./Spinner";
 import { AddEditModal } from "./AddEditModal";
 import { DeleteModal } from "./DeleteModal";
 import { NoteOptionsMenu } from "./NoteOptionsMenu";
 
-export const Sidebar = ({ open, setOpen, onOpenNote }) => {
+export const Sidebar = ({ open, onOpenNote }) => {
   const context = useContext(noteContext);
+  const { theme } = useTheme();
+
   const { loading, notes, fetchNotes, editNote } = context;
 
   const [showSpinner, setShowSpinner] = useState(true);
@@ -80,19 +83,31 @@ export const Sidebar = ({ open, setOpen, onOpenNote }) => {
       <div
         className={`fixed left-0 top-16 h-[calc(100vh-4rem)] ${
           open ? "w-72" : "w-0"
-        } bg-gray-800 shadow-lg z-40 flex flex-col transition-all duration-300 overflow-hidden border-r border-gray-700`}
+        } shadow-lg z-40 flex flex-col transition-all duration-300 overflow-hidden border-r ${
+          theme === "dark"
+            ? "bg-gray-800 border-gray-700 text-white"
+            : "bg-gray-200 border-slate-300 text-black"
+        }`}
       >
         {open && (
           <>
             {/* Header */}
-            <div className="flex items-center justify-center px-4 py-4 border-b border-gray-700 z-50">
-              <h2 className="text-xl font-bold text-white">Your Notes</h2>
+            <div
+              className={`flex items-center justify-center px-4 py-4 z-50 border-b ${
+                theme === "dark" ? "border-gray-700" : "border-slate-300"
+              }`}
+            >
+              <h2 className="text-xl font-bold">Your Notes</h2>
             </div>
             {/* Content */}
             <div className="p-4 flex flex-col gap-4 flex-1 h-0">
               <button
                 onClick={handleAddNote}
-                className="flex items-center justify-center gap-2 text-white bg-gray-600 hover:bg-gray-700 font-medium rounded-lg text-sm px-4 py-2"
+                className={`flex items-center justify-center gap-2 font-medium rounded-lg text-sm px-4 py-2 ${
+                  theme === "dark"
+                    ? "text-white bg-gray-600 hover:bg-gray-700"
+                    : "text-black bg-slate-300 hover:bg-slate-400"
+                }`}
                 type="button"
               >
                 <IoMdAdd className="w-5 h-5" /> Add Note
@@ -109,14 +124,20 @@ export const Sidebar = ({ open, setOpen, onOpenNote }) => {
                     {notes.map((note) => (
                       <li
                         key={note._id}
-                        className={`flex items-center justify-between group rounded px-2 py-1 cursor-pointer transition-colors duration-200 ${
+                        className={`flex items-center justify-between group rounded px-2 py-1 cursor-pointer transition-colors duration-200
+                        ${
                           selectedNote?._id === note._id
-                            ? "bg-blue-700"
-                            : "hover:bg-gray-600"
-                        }`}
+                            ? theme === "dark"
+                              ? "bg-blue-700 text-white"
+                              : "bg-blue-200 text-black"
+                            : theme === "dark"
+                            ? "hover:bg-gray-600 text-white"
+                            : "hover:bg-slate-300 text-black"
+                        }
+                      `}
                       >
                         <span
-                          className="truncate flex-1 text-white"
+                          className="truncate flex-1"
                           onClick={() => handleOpenNote(note)}
                           title={note.title}
                         >

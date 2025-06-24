@@ -5,7 +5,7 @@ import React from "react";
 export const BlurText = ({
   children,
   className = "",
-  delay = 0.2,
+  delay = 0,
   direction = "top",
   threshold = 0.1,
   rootMargin = "0px",
