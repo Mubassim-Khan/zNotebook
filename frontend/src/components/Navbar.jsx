@@ -11,7 +11,11 @@ export const Navbar = ({ open, setOpen }) => {
   return (
     <nav
       className={`w-full fixed top-0 z-50 transition-all ${
-        theme === "dark" ? "bg-gray-900 text-white" : "bg-slate-300 text-black"
+        localStorage.getItem("token")
+          ? theme === "dark"
+            ? "bg-gray-900 text-white"
+            : "bg-slate-300 text-black"
+          : "bg-slate-300 text-black"
       }`}
     >
       {" "}
