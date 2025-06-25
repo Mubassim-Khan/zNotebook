@@ -163,7 +163,7 @@ router.post("/firebase-login", async (req, res) => {
           "No email returned from GitHub. Make sure your GitHub email is public or verified.",
       });
     }
-    
+
     // 2. Find or create user
     let user = await User.findOne({ email });
 
@@ -194,6 +194,7 @@ router.post("/firebase-login", async (req, res) => {
       name: user.name,
       email: user.email,
       username: user.username,
+      avatar: user.avatar,
     });
   } catch (error) {
     console.error("Firebase login error:", error);

@@ -17,12 +17,14 @@ export const Avatar = () => {
 
   const showUsername = () => localStorage.getItem("username");
   const showEmail = () => localStorage.getItem("email");
-
+  const avatarUrl = localStorage.getItem("avatar");
+  console.log(avatarUrl);
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
     localStorage.removeItem("email");
     localStorage.removeItem("name");
+    localStorage.removeItem("avatar");
     setIsOpen(false);
     navigate("/login");
     toast.success("Logged out");
@@ -49,11 +51,20 @@ export const Avatar = () => {
     <div className="relative inline-block" ref={dropdownRef}>
       {localStorage.getItem("token") && (
         <>
-          <FaUserCircle
-            size={30}
-            className="w-10 h-10 rounded-full cursor-pointer"
-            onClick={() => setIsOpen(!isOpen)}
-          />
+          {avatarUrl === undefined ? (
+            <img
+              src={avatarUrl}
+              alt="User Avatar"
+              className="w-10 h-10 rounded-full cursor-pointer object-cover border"
+              onClick={() => setIsOpen(!isOpen)}
+            />
+          ) : (
+            <FaUserCircle
+              size={30}
+              className="w-10 h-10 rounded-full cursor-pointer"
+              onClick={() => setIsOpen(!isOpen)}
+            />
+          )}
 
           <div
             id="userDropdown"

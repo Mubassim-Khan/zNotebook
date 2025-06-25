@@ -71,6 +71,7 @@ export const Login = (props) => {
         localStorage.setItem("token", json.authtoken);
         localStorage.setItem("name", json.name);
         localStorage.setItem("email", json.email);
+        localStorage.setItem("avatar", json.avatar);
         localStorage.setItem("username", json.username || "");
         navigate("/");
       } else {

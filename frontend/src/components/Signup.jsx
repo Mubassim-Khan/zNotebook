@@ -2,6 +2,10 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import sideImage from "../assets/images/undraw_file_sync_ot38.svg";
 import toast from "react-hot-toast";
+
+import { auth, googleProvider, githubProvider } from "../config/firebaseConfig";
+import { signInWithPopup } from "firebase/auth";
+
 import { AuthForm } from "./AuthForm";
 
 export const Signup = (props) => {
@@ -62,6 +66,38 @@ export const Signup = (props) => {
     );
   };
 
+  const handleFirebaseLogin = async (providerType) => {
+    const provider =
+      providerType === "google" ? googleProvider : githubProvider;
+
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const firebaseIdToken = await result.user.getIdToken();
+
+      const response = await fetch(`${hostURL}/api/auth/firebase-login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: firebaseIdToken }),
+      });
+
+      const json = await response.json();
+
+      if (json.success) {
+        localStorage.setItem("token", json.authtoken);
+        localStorage.setItem("name", json.name);
+        localStorage.setItem("email", json.email);
+        localStorage.setItem("avatar", json.avatar);
+        localStorage.setItem("username", json.username || "");
+        navigate("/");
+      } else {
+        toast.error("Login failed. Try again.");
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Authentication failed.");
+    }
+  };
+
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
     setTouched({ ...touched, [e.target.name]: true });
@@ -114,6 +150,8 @@ export const Signup = (props) => {
       credentials={credentials}
       onChange={onChange}
       onSubmit={handleSubmit}
+      onGoogleLogin={() => handleFirebaseLogin("google")}
+      onGithubLogin={() => handleFirebaseLogin("github")}
       sideImage={sideImage}
       submitLabel="Sign Up"
       disabled={
