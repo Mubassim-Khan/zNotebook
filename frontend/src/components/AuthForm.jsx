@@ -21,6 +21,8 @@ export const AuthForm = ({
   redirectLabel,
   children,
   isUsernameInvalid,
+  onGoogleLogin,
+  onGithubLogin,
 }) => (
   <div className="pt-[7rem] pb-20 flex min-h-[calc(100vh-64px)] items-center justify-center bg-slate-300 overflow-y-auto">
     <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg flex flex-col md:flex-row overflow-hidden">
@@ -125,6 +127,7 @@ export const AuthForm = ({
           {/* Google button */}
           <button
             type="submit"
+            onClick={onGoogleLogin}
             className="flex items-center justify-center text-black bg-[#ebebeb] hover:bg-[#e0e0e0] font-medium rounded-lg text-sm mx-auto px-5 py-1 text-center w-full mt-3"
           >
             <img
@@ -138,6 +141,7 @@ export const AuthForm = ({
           {/* GitHub button */}
           <button
             type="submit"
+            onClick={onGithubLogin}
             className="flex items-center justify-center text-white bg-[#24292F]/90 hover:bg-[#24292F] font-medium rounded-lg text-sm mx-auto px-5 py-3.5 text-center w-full mt-3"
           >
             <img

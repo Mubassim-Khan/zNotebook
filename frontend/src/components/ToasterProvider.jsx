@@ -8,7 +8,7 @@ export const ToasterProvider = () => {
       position="top-center"
       toastOptions={{
         style: {
-          background: theme === "dark" ? "#fff" : "#333",
+          background: theme === "dark" ? "#fff" : "#121212",
           color: theme === "dark" ? "#000" : "#fff",
         },
       }}

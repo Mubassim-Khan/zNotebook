@@ -24,9 +24,15 @@ function App() {
       />
       <div>
         <Routes>
+          {/* Render Notes on both "/" and "/notes/:noteId?" */}
           <Route
             exact
             path="/"
+            element={<Notes setProgress={setProgress} open={sidebarOpen} />}
+          />
+          <Route
+            exact
+            path="/notes/:noteId?"
             element={<Notes setProgress={setProgress} open={sidebarOpen} />}
           ></Route>
         </Routes>

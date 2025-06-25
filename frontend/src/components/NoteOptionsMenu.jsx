@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import { FiMoreVertical, FiEdit, FiTrash2, FiShare } from "react-icons/fi";
+import { IoLink } from "react-icons/io5";
+import toast from "react-hot-toast";
 
 import { useTheme } from "../context/theme/ThemeContext";
 
@@ -77,7 +79,12 @@ export const NoteOptionsMenu = ({
             } `}
             onClick={(e) => {
               e.stopPropagation();
-              onEdit(note);
+              const url = `${window.location.origin}/notes/${note._id}`;
+              navigator.clipboard.writeText(url);
+              toast("Link copied!", {
+                icon: <IoLink />,
+              });
+              setMenuOpenId(null);
             }}
           >
             <FiShare className="mr-2" /> Share

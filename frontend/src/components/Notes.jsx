@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
+import { useState, useEffect, useContext } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
 import noteContext from "../context/notes/noteContext";
 import { Sidebar } from "./Sidebar";
@@ -16,9 +15,19 @@ export const Notes = ({ open, setProgress }) => {
     document.title = "Home - zNotebook";
   };
 
-  let navigate = useNavigate();
-    const { theme } = useTheme();
-  
+  const { noteId } = useParams();
+  const navigate = useNavigate();
+  const { theme } = useTheme();
+  const context = useContext(noteContext);
+  const { notes, fetchNotes, editNote, deleteNote } = context;
+
+  // State for the selected note
+  const [activeNote, setActiveNote] = useState(null);
+  // State for Modal opening
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  // State for Sidebar
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   // Function call using useEffect
   useEffect(() => {
     updateProgress();
@@ -30,24 +39,28 @@ export const Notes = ({ open, setProgress }) => {
     }
   }, []);
 
-  const context = useContext(noteContext);
-  const { notes, fetchNotes, editNote, deleteNote } = context;
+  // Set activeNote based on URL param
+  useEffect(() => {
+    if (noteId && notes.length > 0) {
+      const found = notes.find((n) => n._id === noteId);
+      setActiveNote(found || null);
+    }
+  }, [noteId, notes]);
 
-  // State for the selected note
-  const [activeNote, setActiveNote] = useState(null);
-
-  // State for Modal opening
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // State for Sidebar
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  // When a note is selected, update the URL
+  const handleOpenNote = (note) => {
+    setActiveNote(note);
+    navigate(`/notes/${note._id}`);
+  };
 
   return (
-    <div className={`flex min-h-screen ${
-      theme === "dark" ? "bg-gray-900 text-white" : "bg-slate-300"
-    }`}>
+    <div
+      className={`flex min-h-screen ${
+        theme === "dark" ? "bg-gray-900 text-white" : "bg-slate-300"
+      }`}
+    >
       {/* Sidebar */}
-      <Sidebar open={open} onOpenNote={setActiveNote} />
+      <Sidebar open={open} onOpenNote={handleOpenNote} />
 
       {/* Main content area */}
       <main className="flex-1 flex items-center justify-center transition-all duration-300">
