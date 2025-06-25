@@ -146,7 +146,7 @@ router.post(
 );
 
 // Route endpoint: 3
-// To login/register OAuth users (Google, GitHub)
+// To login/register OAuth users (Google, GitHub) (/api/auth/firebase-login)
 router.post("/firebase-login", async (req, res) => {
   try {
     const { token } = req.body;
@@ -156,6 +156,14 @@ router.post("/firebase-login", async (req, res) => {
     const { uid, email, name, picture, firebase } = decoded;
     const provider = firebase?.sign_in_provider || "unknown";
 
+    if (!email) {
+      return res.status(400).json({
+        success: false,
+        error:
+          "No email returned from GitHub. Make sure your GitHub email is public or verified.",
+      });
+    }
+    
     // 2. Find or create user
     let user = await User.findOne({ email });
 
