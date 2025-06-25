@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 
 import { auth, googleProvider, githubProvider } from "../config/firebaseConfig";
 import { signInWithPopup } from "firebase/auth";
+import { GithubAuthProvider } from "firebase/auth"; // make sure this is imported
 
 import sideImage from "../assets/images/undraw_file_sync_ot38.svg";
 import { AuthForm } from "./AuthForm";
@@ -58,17 +59,33 @@ export const Login = (props) => {
     try {
       const result = await signInWithPopup(auth, provider);
       const firebaseIdToken = await result.user.getIdToken();
-      // 🐛 DEBUG: Log the decoded token
-      const decodedToken = JSON.parse(atob(firebaseIdToken.split(".")[1]));
-      console.log("Decoded Firebase ID Token:", decodedToken);
 
-      // Optional: also log the sign-in provider
-      console.log("Sign-in provider:", decodedToken.firebase?.sign_in_provider);
+      let githubUsername = "";
+
+      if (providerType === "github") {
+        // GitHub OAuth access token
+        const credential = GithubAuthProvider.credentialFromResult(result);
+        const githubAccessToken = credential?.accessToken;
+
+        if (githubAccessToken) {
+          const githubUserResponse = await fetch(
+            "https://api.github.com/user",
+            {
+              headers: {
+                Authorization: `Bearer ${githubAccessToken}`,
+              },
+            }
+          );
+
+          const githubData = await githubUserResponse.json();
+          githubUsername = githubData.login; // ← actual GitHub username
+        }
+      }
 
       const response = await fetch(`${hostURL}/api/auth/firebase-login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token: firebaseIdToken }),
+        body: JSON.stringify({ token: firebaseIdToken, githubUsername }),
       });
 
       const json = await response.json();

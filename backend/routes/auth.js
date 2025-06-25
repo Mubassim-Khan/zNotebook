@@ -154,11 +154,10 @@ router.post(
 // To login/register OAuth users (Google, GitHub) (/api/auth/firebase-login)
 router.post("/firebase-login", async (req, res) => {
   try {
-    const { token } = req.body;
+    const { token, githubUsername } = req.body;
 
     // 1. Verify token from Firebase
     const decoded = await admin.auth().verifyIdToken(token);
-    console.log("✅ Firebase token decoded:", decoded);
 
     const { uid, email, name, picture, firebase } = decoded;
     const provider = firebase?.sign_in_provider || "unknown";
@@ -171,7 +170,10 @@ router.post("/firebase-login", async (req, res) => {
       });
     }
 
-    const displayName = name || email.split("@")[0];
+    let displayName = name || email?.split("@")[0];
+    if (provider === "github.com" && githubUsername) {
+      displayName = githubUsername;
+    }
 
     // 2. Find or create user
     let user = await User.findOne({ email });
