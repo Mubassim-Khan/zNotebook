@@ -18,7 +18,7 @@ export const Avatar = () => {
   const showUsername = () => localStorage.getItem("username");
   const showEmail = () => localStorage.getItem("email");
   const avatarUrl = localStorage.getItem("avatar");
-  console.log(avatarUrl);
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
@@ -51,11 +51,11 @@ export const Avatar = () => {
     <div className="relative inline-block" ref={dropdownRef}>
       {localStorage.getItem("token") && (
         <>
-          {avatarUrl === undefined ? (
+          {avatarUrl ? (
             <img
               src={avatarUrl}
               alt="User Avatar"
-              className="w-10 h-10 rounded-full cursor-pointer object-cover border"
+              className="w-10 h-10 rounded-full cursor-pointer object-cover border-none"
               onClick={() => setIsOpen(!isOpen)}
             />
           ) : (
