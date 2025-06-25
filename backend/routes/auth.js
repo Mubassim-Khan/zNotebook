@@ -140,7 +140,12 @@ router.post(
         email: user.email,
       });
     } catch (error) {
-      res.status(500).json({ success: false, error: error.message });
+      console.error(error);
+      res.status(500).json({
+        success: false,
+        message: "Something went wrong :( (Internal Server Error)",
+        error: error.message,
+      });
     }
   }
 );
