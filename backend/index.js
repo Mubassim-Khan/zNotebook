@@ -15,7 +15,7 @@ app.use(cors({
     'http://localhost:5173',
     'https://jubilant-carnival-r4xw7xg7x6q525x65-5173.app.github.dev',
     'https://jubilant-carnival-r4xw7xg7x6q525x65-5173.app.github.dev/login',
-    'https://z-notebook-three.vercel.app'
+    'https://znotebook.vercel.app'
   ],
   credentials: true,
 }));
