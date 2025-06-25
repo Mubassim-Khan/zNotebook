@@ -153,6 +153,8 @@ router.post("/firebase-login", async (req, res) => {
 
     // 1. Verify token from Firebase
     const decoded = await admin.auth().verifyIdToken(token);
+    console.log("✅ Firebase token decoded:", decoded);
+
     const { uid, email, name, picture, firebase } = decoded;
     const provider = firebase?.sign_in_provider || "unknown";
 
@@ -164,12 +166,14 @@ router.post("/firebase-login", async (req, res) => {
       });
     }
 
+    const displayName = name || email.split("@")[0];
+
     // 2. Find or create user
     let user = await User.findOne({ email });
 
     if (!user) {
       user = await User.create({
-        name,
+        name: displayName,
         email,
         firebaseUid: uid,
         provider,

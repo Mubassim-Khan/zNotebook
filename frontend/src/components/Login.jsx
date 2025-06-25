@@ -58,6 +58,12 @@ export const Login = (props) => {
     try {
       const result = await signInWithPopup(auth, provider);
       const firebaseIdToken = await result.user.getIdToken();
+      // 🐛 DEBUG: Log the decoded token
+      const decodedToken = JSON.parse(atob(firebaseIdToken.split(".")[1]));
+      console.log("Decoded Firebase ID Token:", decodedToken);
+
+      // Optional: also log the sign-in provider
+      console.log("Sign-in provider:", decodedToken.firebase?.sign_in_provider);
 
       const response = await fetch(`${hostURL}/api/auth/firebase-login`, {
         method: "POST",
