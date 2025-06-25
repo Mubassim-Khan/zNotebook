@@ -84,6 +84,7 @@ export const NoteOptionsMenu = ({
               toast("Link copied!", {
                 icon: <IoLink />,
               });
+              setMenuOpenId(null);
             }}
           >
             <FiShare className="mr-2" /> Share

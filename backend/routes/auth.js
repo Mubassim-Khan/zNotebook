@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 
 const User = require("../models/User");
 const authenticateToken = require("../middleware/authenticateToken");
+const admin = require("../firebase-admin-init");
 
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET_SIGN;
@@ -145,12 +146,59 @@ router.post(
 );
 
 // Route endpoint: 3
+// To login/register OAuth users (Google, GitHub)
+router.post("/firebase-login", async (req, res) => {
+  try {
+    const { token } = req.body;
+
+    // 1. Verify token from Firebase
+    const decoded = await admin.auth().verifyIdToken(token);
+    const { uid, email, name, picture, firebase } = decoded;
+    const provider = firebase?.sign_in_provider || "unknown";
+
+    // 2. Find or create user
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      user = await User.create({
+        name,
+        email,
+        firebaseUid: uid,
+        provider,
+        password: "", // optional: Firebase users don’t need password
+        username: email.split("@")[0] + "_" + Math.floor(Math.random() * 10000), // generate username
+        avatar: picture,
+      });
+    }
+
+    // 3. Issue JWT
+    const payload = {
+      user: {
+        id: user.id,
+      },
+    };
+
+    const authToken = jwt.sign(payload, JWT_SECRET);
+
+    res.json({
+      success: true,
+      authtoken: authToken,
+      name: user.name,
+      email: user.email,
+      username: user.username,
+    });
+  } catch (error) {
+    console.error("Firebase login error:", error);
+    res.status(401).json({ success: false, error: "Invalid Firebase token" });
+  }
+});
+
+// Route endpoint: 4
 // To get all users detail ('/api/auth/getusers')
 router.get("/getusers", authenticateToken, async (req, res) => {
   try {
     let success = true;
-    // var userId = req.user.id;
-    // Find the user by it's ID (sent prev) and unselect the "password" from it & send the response.
+    // Select all users and unselect the "password" from it & send the response.
     const users = await User.find().select("-password");
     res.json({ success, users });
   } catch (error) {

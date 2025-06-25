@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
+import { auth, googleProvider, githubProvider } from "../config/firebaseConfig";
+import { signInWithPopup } from "firebase/auth";
+
 import sideImage from "../assets/images/undraw_file_sync_ot38.svg";
 import { AuthForm } from "./AuthForm";
 
@@ -43,11 +46,40 @@ export const Login = (props) => {
           navigate("/");
           return <b>Logged in successfully!</b>;
         },
-        error: (data) => (
-          <b>{"Request timed out. Connection Error."}</b>
-        ),
+        error: (data) => <b>{"Request timed out. Connection Error."}</b>,
       }
     );
+  };
+
+  const handleFirebaseLogin = async (providerType) => {
+    const provider =
+      providerType === "google" ? googleProvider : githubProvider;
+
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const firebaseIdToken = await result.user.getIdToken();
+
+      const response = await fetch(`${hostURL}/api/auth/firebase-login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: firebaseIdToken }),
+      });
+
+      const json = await response.json();
+
+      if (json.success) {
+        localStorage.setItem("token", json.authtoken);
+        localStorage.setItem("name", json.name);
+        localStorage.setItem("email", json.email);
+        localStorage.setItem("username", json.username || "");
+        navigate("/");
+      } else {
+        toast.error("Login failed. Try again.");
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Authentication failed.");
+    }
   };
 
   const onChange = (e) =>
@@ -74,6 +106,8 @@ export const Login = (props) => {
       credentials={credentials}
       onChange={onChange}
       onSubmit={handleSubmit}
+      onGoogleLogin={() => handleFirebaseLogin("google")}
+      onGithubLogin={() => handleFirebaseLogin("github")}
       sideImage={sideImage}
       submitLabel="Log In"
       disabled={
