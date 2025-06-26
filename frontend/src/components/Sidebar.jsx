@@ -1,5 +1,7 @@
 import { useContext, useEffect, useState, useRef } from "react";
 import { IoMdAdd } from "react-icons/io";
+import { GoHomeFill } from "react-icons/go";
+import { FaNoteSticky } from "react-icons/fa6";
 import toast from "react-hot-toast";
 
 import noteContext from "../context/notes/noteContext";
@@ -17,6 +19,8 @@ export const Sidebar = ({ open, onOpenNote }) => {
   const { loading, notes, fetchNotes, editNote } = context;
 
   const [showSpinner, setShowSpinner] = useState(true);
+
+  const [showWelcome, setShowWelcome] = useState(false);
 
   const [selectedNote, setSelectedNote] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -77,6 +81,13 @@ export const Sidebar = ({ open, onOpenNote }) => {
     setMenuOpenId(null);
   };
 
+  const handleHomeClick = () => {
+    setSelectedNote(null);
+    setShowWelcome(true);
+    if (onOpenNote) onOpenNote(null); // This will show WelcomePage in parent
+    setMenuOpenId(null);
+  };
+
   return (
     <>
       {/* Sidebar */}
@@ -91,13 +102,32 @@ export const Sidebar = ({ open, onOpenNote }) => {
       >
         {open && (
           <>
+            {/* Home Button */}
+            <div
+              className={`flex items-center w-full justify-center px-4 py-4 z-50 rounded-lg border-b ${
+                theme === "dark"
+                  ? "border-gray-700 text-white hover:bg-gray-600"
+                  : "border-slate-300 text-black hover:bg-slate-300"
+              }`}
+            >
+              <button
+                className="flex items-center gap-2 text-xl font-semibold focus:outline-none"
+                onClick={handleHomeClick}
+                type="button"
+                style={{ width: "100%", justifyContent: "center" }}
+              >
+                <GoHomeFill className="w-5 h-5" />
+                <span>Home</span>
+              </button>
+            </div>
             {/* Header */}
             <div
-              className={`flex items-center justify-center px-4 py-4 z-50 border-b ${
+              className={`flex items-center w-full justify-center px-4 py-4 z-50 border-b ${
                 theme === "dark" ? "border-gray-700" : "border-slate-300"
               }`}
             >
-              <h2 className="text-xl font-bold">Your Notes</h2>
+              <FaNoteSticky className="w-5 h-5" />
+              <span className="text-xl font-semibold ml-2">Your Notes</span>
             </div>
             {/* Content */}
             <div className="p-4 flex flex-col gap-4 flex-1 h-0">
