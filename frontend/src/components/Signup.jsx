@@ -7,12 +7,15 @@ import { auth, googleProvider, githubProvider } from "../config/firebaseConfig";
 import { signInWithPopup } from "firebase/auth";
 
 import { AuthForm } from "./AuthForm";
+import { useTheme } from "../context/theme/ThemeContext";
 
 export const Signup = (props) => {
   useEffect(() => {
     props.setProgress(100);
     document.title = "Join zNotebook - zNotebook";
   }, []);
+
+  const { theme } = useTheme();
 
   const [touched, setTouched] = useState({
     name: false,
@@ -109,68 +112,74 @@ export const Signup = (props) => {
       !/^[a-zA-Z0-9_-]+$/.test(credentials.username));
 
   return (
-    <AuthForm
-      type="signup"
-      title="Register to zNotebook"
-      isUsernameInvalid={isUsernameInvalid}
-      fields={[
-        {
-          name: "name",
-          label: "Full Name",
-          type: "text",
-          minLength: 3,
-          required: true,
-          help: "Name must be atleast 3 characters long.",
-        },
-        {
-          name: "username",
-          label: "Username",
-          type: "text",
-          minLength: 4,
-          required: true,
-          help: "Username can only contain letters, numbers, hyphens (-), and underscores (_) & must be atleast 4 characters long",
-        },
-        { name: "email", label: "Email", type: "email", required: true },
-        {
-          name: "password",
-          label: "Password",
-          type: "password",
-          minLength: 6,
-          required: true,
-          help: "*Password must be atleast 6 characters long.",
-        },
-        {
-          name: "confirmpassword",
-          label: "Confirm Password",
-          type: "password",
-          minLength: 6,
-          required: true,
-        },
-      ]}
-      credentials={credentials}
-      onChange={onChange}
-      onSubmit={handleSubmit}
-      onGoogleLogin={() => handleFirebaseLogin("google")}
-      onGithubLogin={() => handleFirebaseLogin("github")}
-      sideImage={sideImage}
-      submitLabel="Sign Up"
-      disabled={
-        credentials.name.length < 3 ||
-        credentials.username.length < 4 ||
-        credentials.password.length < 6 ||
-        credentials.confirmpassword.length < 6 ||
-        credentials.password !== credentials.confirmpassword
-      }
-      redirectText="Already have an account?"
-      redirectLink="/login"
-      redirectLabel="Log in"
+    <div
+      className={`min-h-screen flex items-center justify-center ${
+        theme === "dark" ? "bg-gray-900 text-white" : "bg-slate-300"
+      }`}
     >
-      {/* Password match warning */}
-      {credentials.password !== credentials.confirmpassword && (
-        <div className="text-red-600 text-sm mb-2">
-          ⚠️ Password does not match!
-        </div>
-      )}
-    </AuthForm>
+      <AuthForm
+        type="signup"
+        title="Register to zNotebook"
+        isUsernameInvalid={isUsernameInvalid}
+        fields={[
+          {
+            name: "name",
+            label: "Full Name",
+            type: "text",
+            minLength: 3,
+            required: true,
+            help: "Name must be atleast 3 characters long.",
+          },
+          {
+            name: "username",
+            label: "Username",
+            type: "text",
+            minLength: 4,
+            required: true,
+            help: "Username can only contain letters, numbers, hyphens (-), and underscores (_) & must be atleast 4 characters long",
+          },
+          { name: "email", label: "Email", type: "email", required: true },
+          {
+            name: "password",
+            label: "Password",
+            type: "password",
+            minLength: 6,
+            required: true,
+            help: "*Password must be atleast 6 characters long.",
+          },
+          {
+            name: "confirmpassword",
+            label: "Confirm Password",
+            type: "password",
+            minLength: 6,
+            required: true,
+          },
+        ]}
+        credentials={credentials}
+        onChange={onChange}
+        onSubmit={handleSubmit}
+        onGoogleLogin={() => handleFirebaseLogin("google")}
+        onGithubLogin={() => handleFirebaseLogin("github")}
+        sideImage={sideImage}
+        submitLabel="Sign Up"
+        disabled={
+          credentials.name.length < 3 ||
+          credentials.username.length < 4 ||
+          credentials.password.length < 6 ||
+          credentials.confirmpassword.length < 6 ||
+          credentials.password !== credentials.confirmpassword
+        }
+        redirectText="Already have an account?"
+        redirectLink="/login"
+        redirectLabel="Log in"
+      >
+        {/* Password match warning */}
+        {credentials.password !== credentials.confirmpassword && (
+          <div className="text-red-600 text-sm mb-2">
+            ⚠️ Password does not match!
+          </div>
+        )}
+      </AuthForm>
+    </div>
   );
 };

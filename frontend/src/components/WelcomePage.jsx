@@ -12,10 +12,11 @@ export const WelcomePage = ({ openAddModal }) => {
         <p
           className={`mb-8 font-bold text-5xl my-2 text-center flex flex-wrap justify-center py-2 ${
             theme === "dark" ? "text-white" : "text-gray-800"
-          } `}
+          }`}
         >
           Welcome,
-          <span className="bg-gradient-to-r from-purple-400 via-blue-500 to-red-500 bg-clip-text text-transparent ml-3 mb-1">
+          <span className="ml-3 mb-1 bg-gradient-to-r from-purple-400 via-blue-400 to-red-500 bg-[length:200%_200%] bg-clip-text text-transparent animate-rainbow">
+            {" "}
             {showLoggedInUsername()}
           </span>
         </p>

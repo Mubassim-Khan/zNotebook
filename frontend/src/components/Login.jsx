@@ -8,6 +8,7 @@ import { GithubAuthProvider } from "firebase/auth"; // make sure this is importe
 
 import sideImage from "../assets/images/undraw_file_sync_ot38.svg";
 import { AuthForm } from "./AuthForm";
+import { useTheme } from "../context/theme/ThemeContext";
 
 export const Login = (props) => {
   useEffect(() => {
@@ -16,6 +17,7 @@ export const Login = (props) => {
   }, []);
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const navigate = useNavigate();
+  const { theme } = useTheme();
   const hostURL = import.meta.env.VITE_HOST_URL;
 
   const handleSubmit = async (e) => {
@@ -110,36 +112,42 @@ export const Login = (props) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
 
   return (
-    <AuthForm
-      type="login"
-      title="Login to zNotebook"
-      fields={[
-        {
-          name: "email",
-          label: "Email address",
-          type: "email",
-          required: true,
-        },
-        {
-          name: "password",
-          label: "Password",
-          type: "password",
-          required: true,
-        },
-      ]}
-      credentials={credentials}
-      onChange={onChange}
-      onSubmit={handleSubmit}
-      onGoogleLogin={() => handleFirebaseLogin("google")}
-      onGithubLogin={() => handleFirebaseLogin("github")}
-      sideImage={sideImage}
-      submitLabel="Log In"
-      disabled={
-        credentials.email.length === 0 || credentials.password.length === 0
-      }
-      redirectText="New to zNotebook?"
-      redirectLink="/register"
-      redirectLabel="Create an account"
-    />
+    <div
+      className={`min-h-screen flex items-center justify-center ${
+        theme === "dark" ? "bg-gray-900 text-white" : "bg-slate-300"
+      }`}
+    >
+      <AuthForm
+        type="login"
+        title="Login to zNotebook"
+        fields={[
+          {
+            name: "email",
+            label: "Email address",
+            type: "email",
+            required: true,
+          },
+          {
+            name: "password",
+            label: "Password",
+            type: "password",
+            required: true,
+          },
+        ]}
+        credentials={credentials}
+        onChange={onChange}
+        onSubmit={handleSubmit}
+        onGoogleLogin={() => handleFirebaseLogin("google")}
+        onGithubLogin={() => handleFirebaseLogin("github")}
+        sideImage={sideImage}
+        submitLabel="Log In"
+        disabled={
+          credentials.email.length === 0 || credentials.password.length === 0
+        }
+        redirectText="New to zNotebook?"
+        redirectLink="/register"
+        redirectLabel="Create an account"
+      />
+    </div>
   );
 };

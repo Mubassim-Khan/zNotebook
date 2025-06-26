@@ -83,8 +83,25 @@ export const Avatar = () => {
                 theme === "dark" ? "text-gray-200" : "text-gray-900"
               }`}
             >
-              <div className="mb-1">{showUsername()}</div>
-              <div className="font-medium truncate">{showEmail()}</div>
+              {/* Username with tooltip */}
+              <div className="mb-1 relative group w-full">
+                <span className="inline-block w-full overflow-hidden text-ellipsis whitespace-nowrap">
+                  {showUsername()}
+                </span>
+                <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-1 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 whitespace-nowrap max-w-[200px]">
+                  {showUsername()}
+                </div>
+              </div>
+
+              {/* Email with tooltip */}
+              <div className="font-medium mb-1 relative group w-full">
+                <span className="inline-block w-full overflow-hidden text-ellipsis whitespace-nowrap">
+                  {showEmail()}
+                </span>
+                <div className="absolute left-1/2 -translate-x-1/2 top-full mt-1 px-1 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 whitespace-nowrap max-w-[200px]">
+                  {showEmail()}
+                </div>
+              </div>
             </div>
             <ul
               className={`py-2 text-sm ${
