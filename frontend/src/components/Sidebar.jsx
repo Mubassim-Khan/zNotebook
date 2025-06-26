@@ -104,22 +104,30 @@ export const Sidebar = ({ open, onOpenNote }) => {
           <>
             {/* Home Button */}
             <div
-              className={`flex items-center w-full justify-center px-4 py-4 z-50 rounded-lg border-b ${
-                theme === "dark"
-                  ? "border-gray-700 text-white hover:bg-gray-600"
-                  : "border-slate-300 text-black hover:bg-slate-300"
-              }`}
-            >
-              <button
-                className="flex items-center gap-2 text-xl font-semibold focus:outline-none"
-                onClick={handleHomeClick}
-                type="button"
-                style={{ width: "100%", justifyContent: "center" }}
-              >
-                <GoHomeFill className="w-5 h-5" />
-                <span>Home</span>
-              </button>
-            </div>
+  className={`flex items-center justify-between px-1 py-1 mt-3 mb-2 mx-3 z-50 border-b rounded-lg transition-colors duration-200
+    ${
+      theme === "dark"
+        ? " text-white hover:bg-gray-600"
+        :  "text-black hover:bg-slate-300"
+    } 
+  `}
+>
+  <button
+    className={`flex items-center gap-2 flex-1 text-base font-semibold px-2 py-1 rounded transition-colors duration-200
+      ${
+        theme === "dark"
+          ? "hover:bg-gray-600 text-white"
+          : "hover:bg-slate-300 text-black"
+      }
+    `}
+    onClick={handleHomeClick}
+    type="button"
+    style={{ justifyContent: "center" }}
+  >
+    <GoHomeFill className="w-5 h-5" />
+    <span className="text-xl font-semibold">Home</span>
+  </button>
+</div>
             {/* Header */}
             <div
               className={`flex items-center w-full justify-center px-4 py-4 z-50 border-b ${
