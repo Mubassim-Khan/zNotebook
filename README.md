@@ -2,7 +2,7 @@
 
 ![Preview 1 Image](https://github.com/Mubassim-Khan/zNotebook/blob/main/frontend/src/assets/images/Preview.png)
 
-![Preview 2 Image](https://github.com/Mubassim-Khan/zNotebook/blob/main/frontend/src/assets/images/Preview%202.png)
+<!-- ![Preview 2 Image](https://github.com/Mubassim-Khan/zNotebook/blob/main/frontend/src/assets/images/Preview%202.png) -->
 
 <div align="center">
     <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" alt="mongodb" />
